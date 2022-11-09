@@ -1,0 +1,9 @@
+.elements__like-button {
+    background: transparent;
+    transition: opacity .4s;
+    border: none;
+}
+
+.profile__like-button:hover {
+    opacity: 0.6;
+}
