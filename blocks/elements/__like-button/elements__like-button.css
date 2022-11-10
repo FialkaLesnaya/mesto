@@ -2,8 +2,11 @@
     background: transparent;
     transition: opacity .4s;
     border: none;
+    transition: opacity .4s;
+    cursor: pointer;
 }
 
-.profile__like-button:hover {
+.elements__like-button:hover {
     opacity: 0.6;
+    
 }

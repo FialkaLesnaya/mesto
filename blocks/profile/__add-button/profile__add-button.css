@@ -9,6 +9,7 @@
     color: #FFFFFF;
     font-size: 22px;
     transition: opacity .4s;
+    cursor: pointer;
 }
 
 .profile__add-button:hover {
