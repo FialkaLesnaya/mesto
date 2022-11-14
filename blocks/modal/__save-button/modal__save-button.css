@@ -10,4 +10,10 @@
     font-size: 18px;
     line-height: 22px;
     cursor: pointer;
+    transition: opacity .4s;
+}
+
+.modal__save-button:hover {
+    opacity: 0.6;
+    
 }
