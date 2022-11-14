@@ -1,0 +1,13 @@
+.modal__save-button {
+    width: 100%;
+    height: 50px;
+    background: #000000;
+    border-radius: 2px;
+    color: #FFFFFF;
+    margin-top: 61px;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    cursor: pointer;
+}

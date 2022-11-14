@@ -1,0 +1,16 @@
+.modal__close {
+    width: 32px;
+    height: 32px;
+    color: #FFFFFF;
+    float: right;
+    transition: opacity .4s;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.modal__close:hover {
+    opacity: 0.6;
+    
+}
