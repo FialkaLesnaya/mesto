@@ -6,3 +6,9 @@
     color: #000000;
     margin-top: 54px;
 }
+
+@media screen and (max-width: 767px) {
+    .modal__body {
+        margin-top: 75px;
+    }
+}
