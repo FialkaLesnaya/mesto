@@ -9,7 +9,7 @@
     font-size: 22px;
     transition: opacity .4s;
     cursor: pointer;
-    background: url('../../../images/plus.png') no-repeat center/22px;
+    background: url('../../../images/plus.svg') no-repeat center/22px;
 }
 
 .profile__add-button:hover {
