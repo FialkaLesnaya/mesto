@@ -5,11 +5,11 @@
     padding: 0;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
-    background: transparent;
     color: #FFFFFF;
     font-size: 22px;
     transition: opacity .4s;
     cursor: pointer;
+    background: url('../../../images/plus.svg') no-repeat center/22px;
 }
 
 .profile__add-button:hover {
@@ -20,5 +20,6 @@
     .profile__add-button {
         width: 282px;
         margin: 36px auto auto auto;
+        background-size: 16px;
     }
 }

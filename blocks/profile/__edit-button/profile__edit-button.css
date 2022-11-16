@@ -3,10 +3,10 @@
     height: 24px;
     padding: 0;
     border: 1px solid #FFFFFF;
-    background: transparent;
     color: #FFFFFF;
     transition: opacity .4s;
     cursor: pointer;
+    background: url('../../../images/edit.svg') no-repeat center/10px;
 }
 
 .profile__edit-button:hover {
@@ -17,5 +17,6 @@
     .profile__edit-button {
         width: 18px;
         height: 18px;
+        background-size: 7.5px;
     }
 }

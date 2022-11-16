@@ -1,13 +1,11 @@
 .profile {
-display: flex;
-align-items: center;
-margin-top: 40px;
+    display: flex;
+    align-items: center;
 }
 
 @media screen and (max-width: 767px) {
     .profile {
-        margin-top: 38px;
         flex-direction: column;
         padding: 0 19px;
-        }
+    }
 }
