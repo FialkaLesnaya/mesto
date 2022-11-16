@@ -1,7 +1,6 @@
 .modal__overlay {
     position: fixed; 
     display: none; 
-    /* display: flex; */
     justify-content: center;
     align-items: center; 
     width: 100%; 
@@ -12,4 +11,8 @@
     bottom: 0;
     background-color: rgba(0,0,0,0.5); 
     z-index: 2; 
+}
+
+.modal__opened {
+    display: flex;
 }
