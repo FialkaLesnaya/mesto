@@ -90,21 +90,21 @@
                 <div id="openModal" class="modal">
                 <div class="modal__overlay">
                     <div class="modal__dialog">
-                        <div class="modal__content">
+                        <form class="modal__content">
                           <div class="modal__header">
                             <h3 class="modal__title">Редактировать профиль</h3>
                             <button title="Close" class="modal__close">&#10005;</button>
                           </div>
                           <div class="modal__body">    
-                            <input type="text" value="Жак-Ив Кусто" class="modal__input">
-                            <input type="text" value="Исследователь океана" class="modal__input">
+                            <input type="text" value="Жак-Ив Кусто" class="modal__input" id="modal__input-name">
+                            <input type="text" value="Исследователь океана" class="modal__input" id="modal__input-position">
                           </div>
 
-                          <button class="modal__save-button">Сохранить</button>
-                        </div>
+                          <button class="modal__save-button" type="submit">Сохранить</button>
+                        </form>
                       </div>
                 </div>
                   </div>
 </body>
-
+<script src="./scripts/script.js"></script>
 </html>
