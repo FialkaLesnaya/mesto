@@ -1,4 +1,4 @@
-.modal__input {
+.popup__input {
     width: 100%;
     border: none;
     border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -8,7 +8,7 @@
     line-height: 17px;
 }
 
-.modal__input + .modal__input {
+.popup__input + .popup__input {
     margin-top: 30px;
 }
 

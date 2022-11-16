@@ -1,4 +1,4 @@
-.modal__close {
+.popup__close {
     width: 32px;
     height: 32px;
     color: #FFFFFF;
@@ -15,12 +15,12 @@
     background: url('../../../images/close.svg') no-repeat center/32px;
 }
 
-.modal__close:hover {
+.popup__close:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {
-    .modal__close {
+    .popup__close {
         width: 20px;
         height: 20px;
         top: -36px;
