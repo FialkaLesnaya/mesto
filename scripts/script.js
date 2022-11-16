@@ -13,10 +13,10 @@ let closeButtonElement = document.querySelector('.popup__close');
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler (evt) {
+function formSubmitHandler(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                                                // Так мы можем определить свою логику отправки.
-                                                // О том, как это делать, расскажем позже.
+    // Так мы можем определить свою логику отправки.
+    // О том, как это делать, расскажем позже.
 
     // Получите значение полей jobInput и nameInput из свойства value
     // Выберите элементы, куда должны быть вставлены значения полей
@@ -26,20 +26,17 @@ function formSubmitHandler (evt) {
     popupElement.classList.remove('popup__opened');
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
-
-function editButtonHandler (evt) {
+function editButtonHandler(evt) {
     evt.preventDefault();
     popupElement.classList.add('popup__opened');
 }
 
-editButtonElement.addEventListener('click', editButtonHandler);
-
-function closeButtonHandler (evt) {
+function closeButtonHandler(evt) {
     evt.preventDefault();
     popupElement.classList.remove('popup__opened');
 }
-
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+formElement.addEventListener('submit', formSubmitHandler);
+editButtonElement.addEventListener('click', editButtonHandler);
 closeButtonElement.addEventListener('click', closeButtonHandler);
