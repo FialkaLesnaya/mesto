@@ -11,6 +11,9 @@
     top: -40px;
     right: -40px;
     position: absolute;
+    background-image: url('../../../images/close.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .modal__close:hover {
