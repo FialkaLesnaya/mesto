@@ -28,6 +28,9 @@ function formSubmitHandler(evt) {
 
 function editButtonHandler(evt) {
     evt.preventDefault();
+
+    nameInput.value = nameText.textContent;
+    jobInput.value = jobText.textContent;
     popupElement.classList.add('popup__opened');
 }
 
@@ -35,6 +38,7 @@ function closeButtonHandler(evt) {
     evt.preventDefault();
     popupElement.classList.remove('popup__opened');
 }
+
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
