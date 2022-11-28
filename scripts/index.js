@@ -1,26 +1,16 @@
-// Находим форму в DOM
-let formElement = document.querySelector('.popup__body[name="edit-profile"]'); // Воспользуйтесь методом querySelector()
-// Находим поля формы в DOM
-let nameInput = document.querySelector('.popup__input[name="name"]'); // Воспользуйтесь инструментом .querySelector()
-let jobInput = document.querySelector('.popup__input[name="job"]');// Воспользуйтесь инструментом .querySelector()
+let formElement = document.querySelector('.popup__body[name="edit-profile"]');
+let nameInput = formElement.querySelector('.popup__input[name="name"]');
+let jobInput = formElement.querySelector('.popup__input[name="job"]');
 
 let nameText = document.querySelector('.profile__name');
 let jobText = document.querySelector('.profile__position');
 
 let editButtonElement = document.querySelector('.profile__edit-button');
-let popupElement = document.querySelector('.popup');
+let popupEditProfileElement = document.querySelector('#edit-profile');
 let closeButtonElement = document.querySelector('.popup__close');
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
 function formSubmitHandler(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    // Так мы можем определить свою логику отправки.
-    // О том, как это делать, расскажем позже.
-
-    // Получите значение полей jobInput и nameInput из свойства value
-    // Выберите элементы, куда должны быть вставлены значения полей
-    // Вставьте новые значения с помощью textContent
+    evt.preventDefault();
     nameText.textContent = nameInput.value;
     jobText.textContent = jobInput.value;
     closeButtonHandler(evt);
@@ -31,21 +21,53 @@ function editButtonHandler(evt) {
 
     nameInput.value = nameText.textContent;
     jobInput.value = jobText.textContent;
-    popupElement.classList.add('popup_opened');
+    popupEditProfileElement.classList.add('popup_opened');
 }
 
 function closeButtonHandler(evt) {
     evt.preventDefault();
-    popupElement.classList.remove('popup_opened');
+    popupEditProfileElement.classList.remove('popup_opened');
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 editButtonElement.addEventListener('click', editButtonHandler);
 closeButtonElement.addEventListener('click', closeButtonHandler);
 
+// Добавление карточки поп-ап
 
+let addButtonElement = document.querySelector('.profile__add-button');
+let popupAddCardElement = document.querySelector('#add-card');
+
+
+function addButtonHandler(evt) {
+    evt.preventDefault();
+    popupAddCardElement.classList.add('popup_opened');
+}
+addButtonElement.addEventListener('click', addButtonHandler);
+
+let closeAddCardButtonElement = popupAddCardElement.querySelector('.popup__close');
+
+
+function closeAddCardButtonHandler(evt) {
+    evt.preventDefault();
+    popupAddCardElement.classList.remove('popup_opened');
+}
+
+closeAddCardButtonElement.addEventListener('click', closeAddCardButtonHandler);
+
+let addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
+let addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
+let addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
+
+function formAddCardSubmitHandler(evt) {
+    evt.preventDefault();
+    addCard(addCardNameInput.value, addCardLinkInput.value);
+    closeAddCardButtonHandler(evt);
+}
+
+addCardFormElement.addEventListener('submit', formAddCardSubmitHandler);
+
+// Добавление карточки
 const cardsContainer = document.querySelector('.elements');
 
 function addCard(nameValue, linkValue) {
@@ -59,7 +81,7 @@ function addCard(nameValue, linkValue) {
     cardImage.setAttribute('src', linkValue);
     cardImage.setAttribute('alt', nameValue);
 
-    cardsContainer.append(cardElement);
+    cardsContainer.prepend(cardElement);
 }
 
 const initialCards = [
