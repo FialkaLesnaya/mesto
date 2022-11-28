@@ -1,73 +1,82 @@
-let formElement = document.querySelector('.popup__body[name="edit-profile"]');
-let nameInput = formElement.querySelector('.popup__input[name="name"]');
-let jobInput = formElement.querySelector('.popup__input[name="job"]');
+// Поп-ап "Редактировать профиль"
+let editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
+let editProfileNameInput = editProfileFormElement.querySelector('.popup__input[name="name"]');
+let editProfileJobInput = editProfileFormElement.querySelector('.popup__input[name="job"]');
 
-let nameText = document.querySelector('.profile__name');
-let jobText = document.querySelector('.profile__position');
+let editProfileNameElement = document.querySelector('.profile__name');
+let editProfileJobElement = document.querySelector('.profile__position');
 
-let editButtonElement = document.querySelector('.profile__edit-button');
-let popupEditProfileElement = document.querySelector('#edit-profile');
-let closeButtonElement = document.querySelector('.popup__close');
+let editProfilePopupElement = document.querySelector('#edit-profile');
 
-function formSubmitHandler(evt) {
+// Метод для открытия и закрытия окна
+function toggleEditProfilePopupHandler(evt) {
     evt.preventDefault();
-    nameText.textContent = nameInput.value;
-    jobText.textContent = jobInput.value;
-    closeButtonHandler(evt);
+    editProfilePopupElement.classList.toggle('popup_opened');
 }
 
-function editButtonHandler(evt) {
-    evt.preventDefault();
+let editProfileCloseButton = document.querySelector('.popup__close');
+editProfileCloseButton.addEventListener('click', toggleEditProfilePopupHandler);
 
-    nameInput.value = nameText.textContent;
-    jobInput.value = jobText.textContent;
-    popupEditProfileElement.classList.add('popup_opened');
+// Метод для открытия окна
+function openEditProfileHandler(evt) {
+    evt.preventDefault();
+    editProfileNameInput.value = editProfileNameElement.textContent;
+    editProfileJobInput.value = editProfileJobElement.textContent;
+    toggleEditProfilePopupHandler(evt);
 }
 
-function closeButtonHandler(evt) {
+let editProfileOpenButton = document.querySelector('.profile__edit-button');
+editProfileOpenButton.addEventListener('click', openEditProfileHandler);
+
+// Метод для отправки данных
+function submitEditProfileHandler(evt) {
     evt.preventDefault();
-    popupEditProfileElement.classList.remove('popup_opened');
+    editProfileNameElement.textContent = editProfileNameInput.value;
+    editProfileJobElement.textContent = editProfileJobInput.value;
+    toggleEditProfilePopupHandler(evt);
 }
-
-formElement.addEventListener('submit', formSubmitHandler);
-editButtonElement.addEventListener('click', editButtonHandler);
-closeButtonElement.addEventListener('click', closeButtonHandler);
-
-// Добавление карточки поп-ап
-
-let addButtonElement = document.querySelector('.profile__add-button');
-let popupAddCardElement = document.querySelector('#add-card');
+editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 
 
-function addButtonHandler(evt) {
-    evt.preventDefault();
-    popupAddCardElement.classList.add('popup_opened');
-}
-addButtonElement.addEventListener('click', addButtonHandler);
 
-let closeAddCardButtonElement = popupAddCardElement.querySelector('.popup__close');
-
-
-function closeAddCardButtonHandler(evt) {
-    evt.preventDefault();
-    popupAddCardElement.classList.remove('popup_opened');
-}
-
-closeAddCardButtonElement.addEventListener('click', closeAddCardButtonHandler);
+// Поп-ап "новое место"
+let addCardOpenButton = document.querySelector('.profile__add-button');
+let addCardPopupElement = document.querySelector('#add-card');
 
 let addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
 let addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
 let addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
 
-function formAddCardSubmitHandler(evt) {
+// Метод для открытия и закрытия окна
+function toggleAddCardPopupHandler(evt) {
+    evt.preventDefault();
+    addCardPopupElement.classList.toggle('popup_opened');
+}
+addCardOpenButton.addEventListener('click', toggleAddCardPopupHandler);
+
+// Метод для закрытия окна
+function closeAddCardButtonHandler(evt) {
+    evt.preventDefault();
+    toggleAddCardPopupHandler(evt);
+    addCardNameInput.value = '';
+    addCardLinkInput.value = '';
+}
+
+let addCardCloseButton = addCardPopupElement.querySelector('.popup__close');
+addCardCloseButton.addEventListener('click', closeAddCardButtonHandler);
+
+// Метод для отправки данных
+function submitAddCardHandler(evt) {
     evt.preventDefault();
     addCard(addCardNameInput.value, addCardLinkInput.value);
     closeAddCardButtonHandler(evt);
 }
 
-addCardFormElement.addEventListener('submit', formAddCardSubmitHandler);
+addCardFormElement.addEventListener('submit', submitAddCardHandler);
 
-// Добавление карточки
+
+
+// Метод для добавление новой карточки
 const cardsContainer = document.querySelector('.elements');
 
 function addCard(nameValue, linkValue) {
@@ -84,6 +93,9 @@ function addCard(nameValue, linkValue) {
     cardsContainer.prepend(cardElement);
 }
 
+
+
+// Добавление исходных карточек
 const initialCards = [
     {
         name: 'Хорген,Швейцария',
