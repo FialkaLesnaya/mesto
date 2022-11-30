@@ -74,9 +74,12 @@ function submitAddCardHandler(evt) {
 
 addCardFormElement.addEventListener('submit', submitAddCardHandler);
 
-
-
 // Метод для добавление новой карточки
+
+function addLikeHandler(evt) {
+    evt.target.classList.toggle('elements__like-button-active');
+}
+
 const cardsContainer = document.querySelector('.elements');
 
 function addCard(nameValue, linkValue) {
@@ -84,6 +87,9 @@ function addCard(nameValue, linkValue) {
     const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
     const cardName = cardElement.querySelector('.elements__name');
     const cardImage = cardElement.querySelector('.elements__image');
+    const likeButton = cardElement.querySelector('.elements__like-button');
+
+    likeButton.addEventListener('click', addLikeHandler);
 
     cardName.textContent = nameValue;
     cardName.setAttribute('title', nameValue);
