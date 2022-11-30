@@ -78,7 +78,11 @@ addCardFormElement.addEventListener('submit', submitAddCardHandler);
 
 function addLikeHandler(evt) {
     evt.target.classList.toggle('elements__like-button-active');
+}    
+function removeElementHandler(evt) {
+    evt.target.closest('.elements__item').remove();
 }
+
 
 const cardsContainer = document.querySelector('.elements');
 
@@ -90,6 +94,10 @@ function addCard(nameValue, linkValue) {
     const likeButton = cardElement.querySelector('.elements__like-button');
 
     likeButton.addEventListener('click', addLikeHandler);
+
+    const trashButton = cardElement.querySelector ('.elements__trash')
+
+    trashButton.addEventListener('click', removeElementHandler);
 
     cardName.textContent = nameValue;
     cardName.setAttribute('title', nameValue);
