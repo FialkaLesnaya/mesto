@@ -77,12 +77,35 @@ addCardFormElement.addEventListener('submit', submitAddCardHandler);
 // Метод для добавление новой карточки
 
 function addLikeHandler(evt) {
+    evt.preventDefault();
     evt.target.classList.toggle('elements__like-button-active');
 }    
 function removeElementHandler(evt) {
+    evt.preventDefault();
     evt.target.closest('.elements__item').remove();
 }
 
+const imagePopup = document.querySelector('#image-details');
+const closeImagePopupButton = imagePopup.querySelector('.popup__close');
+
+function toggleImagePopupHandler(evt) {
+    evt.preventDefault();
+    imagePopup.classList.toggle('popup_opened');
+}
+
+closeImagePopupButton.addEventListener('click', toggleImagePopupHandler);
+
+function openImageDetail(evt) {
+    evt.preventDefault();
+    imagePopup.classList.toggle('popup_opened');
+    imagePopup.classList.toggle('popup_image-overlay');
+
+    const linkValue= evt.target.getAttribute('src');
+    imagePopup.querySelector('.popup__image').setAttribute('src', linkValue);
+
+    const textValue = evt.target.closest('.elements__item').querySelector('.elements__name').textContent;
+    imagePopup.querySelector('.popup__subtitle').textContent = textValue;
+}
 
 const cardsContainer = document.querySelector('.elements');
 
@@ -99,6 +122,8 @@ function addCard(nameValue, linkValue) {
 
     trashButton.addEventListener('click', removeElementHandler);
 
+    cardImage.addEventListener('click', openImageDetail);
+
     cardName.textContent = nameValue;
     cardName.setAttribute('title', nameValue);
     cardImage.setAttribute('src', linkValue);
@@ -113,27 +138,27 @@ function addCard(nameValue, linkValue) {
 const initialCards = [
     {
         name: 'Хорген,Швейцария',
-        link: './images/ricardo-gomez-angel-eis_TT6ntfo-unsplash.jpg'
+        link: 'https://images.unsplash.com/photo-1637145919816-76a50b7a1d4a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1142&q=80'
     },
     {
         name: 'Нью-Гэмпшир,США',
-        link: './images/balazs-busznyak-El5zuQAtfeo-unsplash.jpg'
+        link: 'https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
     },
     {
         name: 'Лаго-ди-Фузине,Италия',
-        link: './images/saso-tusar-s-k-2N90yuY-unsplash.jpg'
+        link: 'https://images.unsplash.com/photo-1470748085385-5fbb3018c796?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1124&q=80'
     },
     {
         name: 'Гатлинбург,США',
-        link: './images/chad-madden-cPa-7yByq3o-unsplash.jpg'
+        link: 'https://images.unsplash.com/photo-1509838174235-432f709c7bfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
     },
     {
         name: 'Ферма Сидр-Хилл,США',
-        link: './images/bonnie-kittle-XAsG0EZEsyA-unsplash.jpg'
+        link: 'https://images.unsplash.com/photo-1475502085205-ffe028919c87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
     },
     {
         name: 'Лак-дю-Фламбо,США',
-        link: './images/dave-hoefler-Z9d7CYpBDqo-unsplash.jpg'
+        link: 'https://images.unsplash.com/photo-1602776256868-8bd74e6aae19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'
     },
 ];
 
