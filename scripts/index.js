@@ -15,20 +15,28 @@ let editProfileCloseButton = document.querySelector('.popup__close');
 
 editProfileCloseButton.addEventListener('click', (evt) => togglePopupVisibility(evt, editProfilePopupElement));
 
-function openEditProfileHandler(evt) {
-    evt.preventDefault();
+function setEditProfileInputValues() {
     editProfileNameInput.value = editProfileNameElement.textContent;
     editProfileJobInput.value = editProfileJobElement.textContent;
+}
+
+function openEditProfileHandler(evt) {
+    evt.preventDefault();
+    setEditProfileInputValues();
     togglePopupVisibility(evt, editProfilePopupElement);
 }
 
 let editProfileOpenButton = document.querySelector('.profile__edit-button');
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
-function submitEditProfileHandler(evt) {
-    evt.preventDefault();
+function setEditProfileDivValues() {
     editProfileNameElement.textContent = editProfileNameInput.value;
     editProfileJobElement.textContent = editProfileJobInput.value;
+}
+
+function submitEditProfileHandler(evt) {
+    evt.preventDefault();
+    setEditProfileDivValues();
     togglePopupVisibility(evt, editProfilePopupElement);
 }
 editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
@@ -48,9 +56,10 @@ function openImageDetail(evt) {
     const subtitleElement =  imagePopup.querySelector('.popup__subtitle');
 
     popupImage.setAttribute('src', linkValue);
+    popupImage.setAttribute('alt', elementName.textContent);
     subtitleElement.textContent = elementName.textContent;
 
-    imagePopup.classList.toggle('popup_opened');
+    togglePopupVisibility(evt, imagePopup);
     imagePopup.classList.toggle('popup_image-overlay')
 }
 
@@ -69,22 +78,34 @@ function addLikeHandler(evt) {
 // Добавление карточки
 const cardsContainer = document.querySelector('.elements');
 
-function addCard(nameValue, linkValue) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
-    const cardName = cardElement.querySelector('.elements__name');
-    const cardImage = cardElement.querySelector('.elements__image');
+function addCardEventListeners(cardElement) {
     const likeButton = cardElement.querySelector('.elements__like-button');
     const trashButton = cardElement.querySelector('.elements__trash')
 
     likeButton.addEventListener('click', addLikeHandler);
     trashButton.addEventListener('click', removeElementHandler);
-    cardImage.addEventListener('click', openImageDetail);
+}
 
-    cardName.textContent = nameValue;
-    cardName.setAttribute('title', nameValue);
+function setCardNameElementValues(cardElement, nameValue) {
+    const cardNameElement = cardElement.querySelector('.elements__name');
+    cardNameElement.textContent = nameValue;
+    cardNameElement.setAttribute('title', nameValue);
+}
+
+function setCardImageElementValues(cardElement, nameValue, linkValue) {
+    const cardImage = cardElement.querySelector('.elements__image');
     cardImage.setAttribute('src', linkValue);
     cardImage.setAttribute('alt', nameValue);
+    cardImage.addEventListener('click', openImageDetail);
+}
+
+function addCard(nameValue, linkValue) {
+    const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
+
+    addCardEventListeners(cardElement);
+    setCardNameElementValues(cardElement, nameValue);
+    setCardImageElementValues(cardElement, nameValue, linkValue);
 
     cardsContainer.prepend(cardElement);
 }
@@ -128,11 +149,15 @@ let addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="lin
 
 addCardOpenButton.addEventListener('click', (evt) => togglePopupVisibility(evt, addCardPopupElement));
 
+function resetAddCardValues() {
+    addCardNameInput.value = '';
+    addCardLinkInput.value = '';
+}
+
 function closeAddCardButtonHandler(evt) {
     evt.preventDefault();
     togglePopupVisibility(evt, addCardPopupElement);
-    addCardNameInput.value = '';
-    addCardLinkInput.value = '';
+    resetAddCardValues();
 }
 
 let addCardCloseButton = addCardPopupElement.querySelector('.popup__close');
