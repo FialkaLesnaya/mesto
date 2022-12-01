@@ -41,17 +41,13 @@ closeImagePopupButton.addEventListener('click', (evt) => togglePopupVisibility(e
 
 function openImageDetail(evt) {
     evt.preventDefault();;
+    const popupImage = imagePopup.querySelector('.popup__image');
     const elementItem = evt.target.closest('.elements__item');
     const elementName = elementItem.querySelector('.elements__name');
     const linkValue = evt.target.getAttribute('src');
-    const imageElement = document.createElement('img');
-    const subtitleElement = imagePopup.querySelector('.popup__subtitle');
-    imageElement.setAttribute('src', linkValue);
-    imageElement.setAttribute('alt', elementName.textContent);
-    imageElement.classList.add('popup__image');
+    const subtitleElement =  imagePopup.querySelector('.popup__subtitle');
 
-    subtitleElement.parentNode.insertBefore(imageElement, subtitleElement);
-
+    popupImage.setAttribute('src', linkValue);
     subtitleElement.textContent = elementName.textContent;
 
     imagePopup.classList.toggle('popup_opened');
