@@ -8,13 +8,13 @@ function openPopup(popup) {
 }
 
 // Поп-ап редактировать профиль
-let editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
-let editProfileNameInput = editProfileFormElement.querySelector('.popup__input[name="name"]');
-let editProfileJobInput = editProfileFormElement.querySelector('.popup__input[name="job"]');
-let editProfileNameElement = document.querySelector('.profile__name');
-let editProfileJobElement = document.querySelector('.profile__position');
-let editProfilePopupElement = document.querySelector('#edit-profile');
-let editProfileCloseButton = document.querySelector('.popup__close');
+const editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
+const editProfileNameInput = editProfileFormElement.querySelector('.popup__input[name="name"]');
+const editProfileJobInput = editProfileFormElement.querySelector('.popup__input[name="job"]');
+const editProfileNameElement = document.querySelector('.profile__name');
+const editProfileJobElement = document.querySelector('.profile__position');
+const editProfilePopupElement = document.querySelector('#edit-profile');
+const editProfileCloseButton = document.querySelector('.popup__close');
 
 editProfileCloseButton.addEventListener('click', () => closePopup(editProfilePopupElement));
 
@@ -29,7 +29,7 @@ function openEditProfileHandler(evt) {
     openPopup(editProfilePopupElement);
 }
 
-let editProfileOpenButton = document.querySelector('.profile__edit-button');
+const editProfileOpenButton = document.querySelector('.profile__edit-button');
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function setEditProfileDivValues() {
@@ -143,12 +143,12 @@ const initialCards = [
 initialCards.forEach(card => addCard(card.name, card.link));
 
 // Поп-ап новое место
-let addCardOpenButton = document.querySelector('.profile__add-button');
-let addCardPopupElement = document.querySelector('#add-card');
+const addCardOpenButton = document.querySelector('.profile__add-button');
+const addCardPopupElement = document.querySelector('#add-card');
 
-let addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
-let addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
-let addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
+const addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
+const addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
+const addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
 
 addCardOpenButton.addEventListener('click', () => openPopup(addCardPopupElement));
 
@@ -163,7 +163,7 @@ function closeAddCardButtonHandler(evt) {
     resetAddCardValues();
 }
 
-let addCardCloseButton = addCardPopupElement.querySelector('.popup__close');
+const addCardCloseButton = addCardPopupElement.querySelector('.popup__close');
 addCardCloseButton.addEventListener('click', closeAddCardButtonHandler);
 
 function submitAddCardHandler(evt) {
