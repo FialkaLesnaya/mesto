@@ -85,33 +85,29 @@ function addLikeHandler(evt) {
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 
-function addCardEventListeners(cardElement) {
-    const likeButton = cardElement.querySelector('.elements__like-button');
-    const trashButton = cardElement.querySelector('.elements__trash')
 
-    likeButton.addEventListener('click', addLikeHandler);
-    trashButton.addEventListener('click', removeElementHandler);
-}
-
-function setCardNameElementValues(cardElement, nameValue) {
+function generateCard(item, nameValue, linkValue) {
+    const cardElement = item.cloneNode(true);
     const cardNameElement = cardElement.querySelector('.elements__name');
+    const cardImage = cardElement.querySelector('.elements__image');
+    const likeButton = cardElement.querySelector('.elements__like-button');
+    const trashButton = cardElement.querySelector('.elements__trash');
+
     cardNameElement.textContent = nameValue;
     cardNameElement.setAttribute('title', nameValue);
-}
-
-function setCardImageElementValues(cardElement, nameValue, linkValue) {
-    const cardImage = cardElement.querySelector('.elements__image');
     cardImage.setAttribute('src', linkValue);
     cardImage.setAttribute('alt', nameValue);
+
     cardImage.addEventListener('click', openImageDetail);
+    likeButton.addEventListener('click', addLikeHandler);
+    trashButton.addEventListener('click', removeElementHandler);
+
+    return cardElement;
 }
 
 function addCard(nameValue, linkValue) {
-    const cardElement = cardTemplate.querySelector('.elements__item').cloneNode(true);
-
-    addCardEventListeners(cardElement);
-    setCardNameElementValues(cardElement, nameValue);
-    setCardImageElementValues(cardElement, nameValue, linkValue);
+    const itemElement = cardTemplate.querySelector('.elements__item');
+    const cardElement = generateCard(itemElement, nameValue, linkValue);
 
     cardsContainer.prepend(cardElement);
 }
