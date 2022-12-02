@@ -47,16 +47,16 @@ editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 // Поп-ап детальное изображение 
 const imagePopup = document.querySelector('#image-details');
 const closeImagePopupButton = imagePopup.querySelector('.popup__close');
+const popupImage = imagePopup.querySelector('.popup__image');
+const subtitleElement =  imagePopup.querySelector('.popup__subtitle');
 
 closeImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
 
 function openImageDetail(evt) {
     evt.preventDefault();;
-    const popupImage = imagePopup.querySelector('.popup__image');
     const elementItem = evt.target.closest('.elements__item');
     const elementName = elementItem.querySelector('.elements__name');
     const linkValue = evt.target.getAttribute('src');
-    const subtitleElement =  imagePopup.querySelector('.popup__subtitle');
 
     popupImage.setAttribute('src', linkValue);
     popupImage.setAttribute('alt', elementName.textContent);
