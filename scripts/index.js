@@ -15,6 +15,26 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closePopup(popup));
 });
 
+function handleKeyDownEvent(evt) {
+    const key = evt.key;
+    const openedPopup = document.querySelector('.popup_opened');
+    if (key === "Escape" && openedPopup) {
+        closePopup(openedPopup);
+    }
+}
+document.addEventListener('keydown', handleKeyDownEvent);
+
+const popupList = document.querySelectorAll('.popup');
+function handleClickOverlayEvent(evt, popup) {
+    if (evt.target.classList.contains('popup')) {
+        closePopup(popup)
+    }
+}
+
+popupList.forEach(popup => {
+    popup.addEventListener('click', (evt) => handleClickOverlayEvent(evt, popup));
+});
+
 
 // Поп-ап редактировать профиль
 const editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
@@ -164,13 +184,3 @@ function submitAddCardHandler(evt) {
 }
 
 addCardFormElement.addEventListener('submit', submitAddCardHandler);
-
-function handleKeyDownEvent(evt) {
-    const key = evt.key;
-    const openedPopup = document.querySelector('.popup_opened');
-    if (key === "Escape" && openedPopup) {
-        closePopup(openedPopup);
-    }
-}
-
-document.addEventListener('keydown', handleKeyDownEvent);
