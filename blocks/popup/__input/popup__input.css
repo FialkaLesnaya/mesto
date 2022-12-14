@@ -7,8 +7,3 @@
     font-size: 14px;
     line-height: 17px;
 }
-
-.popup__input + .popup__input {
-    margin-top: 30px;
-}
-
