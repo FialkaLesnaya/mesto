@@ -17,23 +17,15 @@ function openPopup(popup) {
     document.addEventListener('keydown', closeByEscape);
 }
 
-const closeButtons = document.querySelectorAll('.popup__close');
-closeButtons.forEach((button) => {
-    // находим 1 раз ближайший к крестику попап 
-    const popup = button.closest('.popup');
-    // устанавливаем обработчик закрытия на крестик
-    button.addEventListener('click', () => closePopup(popup));
-});
-
 const popupList = document.querySelectorAll('.popup');
-function handleClickOverlayEvent(evt, popup) {
-    if (evt.target.classList.contains('popup')) {
+function handleMouseDownEvent(evt, popup) {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
         closePopup(popup)
     }
 }
 
 popupList.forEach(popup => {
-    popup.addEventListener('click', (evt) => handleClickOverlayEvent(evt, popup));
+    popup.addEventListener('mousedown', (evt) => handleMouseDownEvent(evt, popup));
 });
 
 
