@@ -168,8 +168,15 @@ const addCardPopupElement = document.querySelector('#add-card');
 const addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
 const addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
 const addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
+const addCardSubmitButton = addCardFormElement.querySelector('.popup__save-button');
 
-addCardOpenButton.addEventListener('click', () => openPopup(addCardPopupElement));
+addCardOpenButton.addEventListener('click', () => {
+    openPopup(addCardPopupElement);
+    if (addCardNameInput.value === '' || addCardLinkInput.value === '') {
+        addCardSubmitButton.setAttribute('disabled', true);
+        addCardSubmitButton.classList.add('popup__save-button_disabled');
+    }
+});
 
 function closeAddCardButtonHandler(evt) {
     evt.preventDefault();
