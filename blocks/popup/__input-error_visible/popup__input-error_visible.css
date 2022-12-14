@@ -1,3 +1,4 @@
 .popup__input-error-visible {
-    display: block;
+    opacity: 1;
+    visibility: visible;
 }
