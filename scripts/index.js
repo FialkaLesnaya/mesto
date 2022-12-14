@@ -13,8 +13,28 @@ closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     // устанавливаем обработчик закрытия на крестик
     button.addEventListener('click', () => closePopup(popup));
-  });
-  
+});
+
+function handleKeyDownEvent(evt) {
+    const key = evt.key;
+    const openedPopup = document.querySelector('.popup_opened');
+    if (key === "Escape" && openedPopup) {
+        closePopup(openedPopup);
+    }
+}
+document.addEventListener('keydown', handleKeyDownEvent);
+
+const popupList = document.querySelectorAll('.popup');
+function handleClickOverlayEvent(evt, popup) {
+    if (evt.target.classList.contains('popup')) {
+        closePopup(popup)
+    }
+}
+
+popupList.forEach(popup => {
+    popup.addEventListener('click', (evt) => handleClickOverlayEvent(evt, popup));
+});
+
 
 // Поп-ап редактировать профиль
 const editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
@@ -53,7 +73,7 @@ editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 // Поп-ап детальное изображение 
 const imagePopup = document.querySelector('#image-details');
 const popupImage = imagePopup.querySelector('.popup__image');
-const subtitleElement =  imagePopup.querySelector('.popup__subtitle');
+const subtitleElement = imagePopup.querySelector('.popup__subtitle');
 
 function openImageDetail(evt) {
     evt.preventDefault();;

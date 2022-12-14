@@ -42,35 +42,6 @@
             <span class="footer__copyright">&copy; 2020 Mesto Russia</span>
         </footer>
 
-        <div class="popup" id="edit-profile">
-            <div class="popup__container">
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <button aria-label="Close" class="popup__close" type="button"></button>
-
-                <form class="popup__body" name="edit-profile">
-                    <input required placeholder="Введите имя" type="text" class="popup__input" name="name">
-                    <input required placeholder="Введите ваш вид деятельности" type="text" class="popup__input"
-                        name="job">
-
-                    <button class="popup__save-button" type="submit">Сохранить</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="popup" id="add-card">
-            <div class="popup__container">
-                <h2 class="popup__title">Новое место</h2>
-                <button aria-label="Close" class="popup__close" type="button"></button>
-
-                <form class="popup__body" name="add-card">
-                    <input required placeholder="Название" type="text" class="popup__input" name="name">
-                    <input required placeholder="Ссылка на картинку" type="text" class="popup__input" name="link">
-
-                    <button class="popup__save-button" type="submit">Создать</button>
-                </form>
-            </div>
-        </div>
-
         <template id="card-template">
             <article class="elements__item">
                 <div class="elements__trash"></div>
@@ -81,6 +52,60 @@
                 </div>
             </article>
         </template>
+
+        <div class="popup" id="edit-profile">
+            <div class="popup__container">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <button aria-label="Close" class="popup__close" type="button"></button>
+
+                <form class="popup__body" name="edit-profile" novalidate>
+                    <fieldset class="popup__fieldset">
+                        <label class="popup__label">
+                            <input required placeholder="Введите имя" type="text" class="popup__input" id="name-input"
+                                name="name" minlength="2" maxlength="40">
+
+                            <span class="popup__input-error name-input-error"></span>
+                        </label>
+
+                        <label class="popup__label">
+                            <input required placeholder="Введите ваш вид деятельности" type="text" class="popup__input"
+                                id="job-input" name="job" minlength="2" maxlength="200">
+
+                            <span class="popup__input-error job-input-error"></span>
+                        </label>
+
+                        <button class="popup__save-button" type="submit">Сохранить</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup" id="add-card">
+            <div class="popup__container">
+                <h2 class="popup__title">Новое место</h2>
+                <button aria-label="Close" class="popup__close" type="button"></button>
+
+                <form class="popup__body" name="add-card" novalidate>
+                    <fieldset class="popup__fieldset">
+                        <label class="popup__label">
+                            <input required placeholder="Название" type="text" class="popup__input" name="name"
+                                id="card-name-input" minlength="2" maxlength="30">
+
+                            <span class="popup__input-error card-name-input-error"></span>
+                        </label>
+
+                        <label class="popup__label">
+                            <input required placeholder="Ссылка на картинку" type="url" class="popup__input"
+                                name="link" id="link-input">
+
+                            <span class="popup__input-error link-input-error"></span>
+                        </label>
+
+                        <button class="popup__save-button" type="submit">Создать</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
 
         <div class="popup" id="image-details">
             <div class="popup__image-container">
@@ -93,6 +118,7 @@
         </div>
 
         <script src="./scripts/index.js"></script>
+        <script src="./scripts/validate.js"></script>
     </div>
 </body>
 
