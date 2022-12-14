@@ -1,10 +1,20 @@
 // Общие функции
+function closeByEscape(evt) {
+    const key = evt.key;
+    if (key === "Escape") {
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
+    }
+}
+
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEscape);
 }
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEscape);
 }
 
 const closeButtons = document.querySelectorAll('.popup__close');
@@ -14,15 +24,6 @@ closeButtons.forEach((button) => {
     // устанавливаем обработчик закрытия на крестик
     button.addEventListener('click', () => closePopup(popup));
 });
-
-function handleKeyDownEvent(evt) {
-    const key = evt.key;
-    const openedPopup = document.querySelector('.popup_opened');
-    if (key === "Escape" && openedPopup) {
-        closePopup(openedPopup);
-    }
-}
-document.addEventListener('keydown', handleKeyDownEvent);
 
 const popupList = document.querySelectorAll('.popup');
 function handleClickOverlayEvent(evt, popup) {
@@ -104,7 +105,7 @@ function addLikeHandler(evt) {
 // Добавление карточки
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
-
+const itemElement = cardTemplate.querySelector('.elements__item');
 
 function generateCard(item, nameValue, linkValue) {
     const cardElement = item.cloneNode(true);
@@ -126,7 +127,6 @@ function generateCard(item, nameValue, linkValue) {
 }
 
 function addCard(nameValue, linkValue) {
-    const itemElement = cardTemplate.querySelector('.elements__item');
     const cardElement = generateCard(itemElement, nameValue, linkValue);
 
     cardsContainer.prepend(cardElement);
