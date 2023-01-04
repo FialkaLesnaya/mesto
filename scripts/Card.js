@@ -1,3 +1,5 @@
+import { openPopup } from './utils.js';
+
 // Поп-ап детальное изображение 
 const imagePopup = document.querySelector('#image-details');
 const popupImage = imagePopup.querySelector('.popup__image');

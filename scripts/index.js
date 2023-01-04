@@ -1,24 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-
-// Общие функции
-function closeByEscape(evt) {
-    const key = evt.key;
-    if (key === "Escape") {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
-    }
-}
-
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeByEscape);
-}
-
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEscape);
-}
+import { openPopup, closePopup } from './utils.js';
 
 const popupList = document.querySelectorAll('.popup');
 function handleMouseDownEvent(evt, popup) {
