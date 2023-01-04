@@ -47,7 +47,7 @@ export default class Card {
 
     // Открытие карточки
     _openImageDetail(evt) {
-        evt.preventDefault();;
+        evt.preventDefault();
         const elementItem = evt.target.closest('.elements__item');
         const elementName = elementItem.querySelector('.elements__name');
         const linkValue = evt.target.getAttribute('src');

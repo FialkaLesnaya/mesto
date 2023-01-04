@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 // Общие функции
 function closeByEscape(evt) {
     const key = evt.key;
@@ -68,7 +71,6 @@ const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 const itemElement = cardTemplate.querySelector('.elements__item');
 
-import Card from "./Card.js";
 
 function addCard(nameValue, linkValue) {
     const card = new Card(nameValue, linkValue, itemElement);
@@ -136,8 +138,6 @@ function submitAddCardHandler(evt) {
 }
 
 addCardFormElement.addEventListener('submit', submitAddCardHandler);
-
-import FormValidator from "./FormValidator.js";
 
 const settings = {
     inputSelector: '.popup__input',
