@@ -66,12 +66,15 @@ function handleCardClick(name, link) {
 }
 
 
+function createCard(nameValue, linkValue) {
+    const card = new Card(nameValue, linkValue, itemElement, handleCardClick);
+    const cardElement = card.getCard();
+    return cardElement
+}
+
 
 function addCard(nameValue, linkValue) {
-    const card = new Card(nameValue, linkValue, itemElement,handleCardClick);
-    const cardElement = card.getCard();
-
-    cardsContainer.prepend(cardElement);
+    cardsContainer.prepend(createCard(nameValue, linkValue));
 }
 
 const initialCards = [
