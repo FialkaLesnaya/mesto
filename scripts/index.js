@@ -52,10 +52,23 @@ editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 const itemElement = cardTemplate.querySelector('.elements__item');
+const imagePopup = document.querySelector('#image-details');
+const popupImage = imagePopup.querySelector('.popup__image');
+const subtitleElement = imagePopup.querySelector('.popup__subtitle');
+
+function handleCardClick(name, link) {
+    popupImage.setAttribute('src', link);
+    popupImage.setAttribute('alt', name.textContent);
+    subtitleElement.textContent = name.textContent;
+
+    openPopup(imagePopup);
+    imagePopup.classList.toggle('popup_image-overlay')
+}
+
 
 
 function addCard(nameValue, linkValue) {
-    const card = new Card(nameValue, linkValue, itemElement);
+    const card = new Card(nameValue, linkValue, itemElement,handleCardClick);
     const cardElement = card.getCard();
 
     cardsContainer.prepend(cardElement);

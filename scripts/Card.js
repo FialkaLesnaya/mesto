@@ -1,15 +1,9 @@
-import { openPopup } from './utils.js';
-
-// Поп-ап детальное изображение 
-const imagePopup = document.querySelector('#image-details');
-const popupImage = imagePopup.querySelector('.popup__image');
-const subtitleElement = imagePopup.querySelector('.popup__subtitle');
-
 export default class Card {
-    constructor(name, link, selector) {
+    constructor(name, link, selector, handleCardClick) {
         this.name = name;
         this.link = link;
         this.selector = selector;
+        this._handleCardClick = handleCardClick;
     }
 
     getCard() {
@@ -28,13 +22,15 @@ export default class Card {
         cardImage.setAttribute('src', this.link);
         cardImage.setAttribute('alt', this.name);
 
-        cardImage.addEventListener('click', this._openImageDetail);
+        cardImage.addEventListener('click', (evt) => this._openImageDetail(evt, this._handleCardClick));
         likeButton.addEventListener('click', this._addLikeHandler);
         trashButton.addEventListener('click', this._removeElementHandler);
+        
+
 
         return cardElement;
     }
-    
+
     // Лайк карточки
     _addLikeHandler(evt) {
         evt.preventDefault();
@@ -48,17 +44,12 @@ export default class Card {
     }
 
     // Открытие карточки
-    _openImageDetail(evt) {
+    _openImageDetail(evt,handleCardClick) {
         evt.preventDefault();
         const elementItem = evt.target.closest('.elements__item');
         const elementName = elementItem.querySelector('.elements__name');
         const linkValue = evt.target.getAttribute('src');
-    
-        popupImage.setAttribute('src', linkValue);
-        popupImage.setAttribute('alt', elementName.textContent);
-        subtitleElement.textContent = elementName.textContent;
-    
-        openPopup(imagePopup);
-        imagePopup.classList.toggle('popup_image-overlay')
+
+        handleCardClick(elementName, linkValue);
     }
 }
