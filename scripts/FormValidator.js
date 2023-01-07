@@ -2,9 +2,9 @@ export default class FormValidator {
     constructor(settings, element) {
         this.settings = settings;
         this.element = element;
-        this.fieldsetList = Array.from(this.element.querySelectorAll(this.settings.fieldsetSelector));
-        this.inputList = Array.from(this.element.querySelectorAll(this.settings.inputSelector));
-        this.buttonElement = this.element.querySelector(this.settings.submitButtonSelector);
+        this.fieldsetList = Array.from(element.querySelectorAll(this.settings.fieldsetSelector));
+        this.inputList = Array.from(element.querySelectorAll(this.settings.inputSelector));
+        this.buttonElement = element.querySelector(this.settings.submitButtonSelector);
     }
 
     enableValidation() {
@@ -20,8 +20,8 @@ export default class FormValidator {
     resetValidation() {
         this._toggleButtonState();
   
-        this._inputList.forEach((inputElement) => {
-          this._hideError(inputElement);
+        this.inputList.forEach((inputElement) => {
+          this._hideInputError(inputElement);
         });
   
       }
@@ -60,12 +60,12 @@ export default class FormValidator {
         errorElement.textContent = '';
     }
 
-    _hasInvalidInput(inputList) {
-        return inputList.some((inputElement) => !inputElement.validity.valid);
+    _hasInvalidInput() {
+        return this.inputList.some((inputElement) => !inputElement.validity.valid);
     }
 
     _toggleButtonState() {
-        if (this._hasInvalidInput(this.inputList)) {
+        if (this._hasInvalidInput()) {
             this.buttonElement.classList.add(this.settings.inactiveButtonClass);
             this.buttonElement.setAttribute('disabled', true);
         } else {

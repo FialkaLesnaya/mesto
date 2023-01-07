@@ -31,6 +31,7 @@ function openEditProfileHandler(evt) {
     evt.preventDefault();
     setEditProfileInputValues();
     openPopup(editProfilePopupElement);
+    formValidators['edit-profile'].resetValidation();
 }
 
 const editProfileOpenButton = document.querySelector('.profile__edit-button');
@@ -113,14 +114,10 @@ const addCardPopupElement = document.querySelector('#add-card');
 const addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
 const addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
 const addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
-const addCardSubmitButton = addCardFormElement.querySelector('.popup__save-button');
 
 addCardOpenButton.addEventListener('click', () => {
     openPopup(addCardPopupElement);
-    if (addCardNameInput.value === '' || addCardLinkInput.value === '') {
-        addCardSubmitButton.setAttribute('disabled', true);
-        addCardSubmitButton.classList.add('popup__save-button_disabled');
-    }
+    formValidators['add-card'].resetValidation();
 });
 
 function closeAddCardButtonHandler(evt) {
@@ -137,16 +134,27 @@ function submitAddCardHandler(evt) {
 
 addCardFormElement.addEventListener('submit', submitAddCardHandler);
 
-const settings = {
+const config = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
     inactiveButtonClass: 'popup__save-button_disabled',
     inputErrorClass: 'popup__input_type-error',
     errorClass: 'popup__input-error_visible',
     fieldsetSelector: '.popup__fieldset',
+    formSelector: '.popup__body',
 };
 
-const formList = Array.from(document.querySelectorAll('.popup__body'));
-formList.forEach((formElement) => {
-    new FormValidator(settings, formElement).enableValidation();
-});
+const formValidators = {}
+
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(config.formSelector))
+    formList.forEach((formElement) => {
+        const validator = new FormValidator(config, formElement)
+        const formName = formElement.getAttribute('name')
+
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
+};
+
+enableValidation(config);
