@@ -4,6 +4,12 @@ export default class Card {
         this.link = link;
         this.selector = selector;
         this._handleCardClick = handleCardClick;
+
+        this.cardElement = this.selector.cloneNode(true);
+        this.cardNameElement = this.cardElement.querySelector('.elements__name');
+        this.cardImage = this.cardElement.querySelector('.elements__image');
+        this.likeButton = this.cardElement.querySelector('.elements__like-button');
+        this.trashButton = this.cardElement.querySelector('.elements__trash');
     }
 
     getCard() {
@@ -11,24 +17,18 @@ export default class Card {
     }
 
     _generateCard() {
-        const cardElement = this.selector.cloneNode(true);
-        const cardNameElement = cardElement.querySelector('.elements__name');
-        const cardImage = cardElement.querySelector('.elements__image');
-        const likeButton = cardElement.querySelector('.elements__like-button');
-        const trashButton = cardElement.querySelector('.elements__trash');
+        this.cardNameElement.textContent = this.name;
+        this.cardNameElement.setAttribute('title', this.name);
+        this.cardImage.setAttribute('src', this.link);
+        this.cardImage.setAttribute('alt', this.name);
+        this._setEventListeners();
+        return this.cardElement;
+    }
 
-        cardNameElement.textContent = this.name;
-        cardNameElement.setAttribute('title', this.name);
-        cardImage.setAttribute('src', this.link);
-        cardImage.setAttribute('alt', this.name);
-
-        cardImage.addEventListener('click', (evt) => this._openImageDetail(evt, this._handleCardClick));
-        likeButton.addEventListener('click', this._addLikeHandler);
-        trashButton.addEventListener('click', this._removeElementHandler);
-        
-
-
-        return cardElement;
+    _setEventListeners() {
+        this.cardImage.addEventListener('click', (evt) => this._openImageDetail(evt, this._handleCardClick));
+        this.likeButton.addEventListener('click', this._addLikeHandler);
+        this.trashButton.addEventListener('click', this._removeElementHandler);
     }
 
     // Лайк карточки
@@ -44,12 +44,8 @@ export default class Card {
     }
 
     // Открытие карточки
-    _openImageDetail(evt,handleCardClick) {
+    _openImageDetail(evt, handleCardClick) {
         evt.preventDefault();
-        const elementItem = evt.target.closest('.elements__item');
-        const elementName = elementItem.querySelector('.elements__name');
-        const linkValue = evt.target.getAttribute('src');
-
-        handleCardClick(elementName, linkValue);
+        handleCardClick(this.cardNameElement, this.cardImage.getAttribute('src'));
     }
 }
