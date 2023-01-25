@@ -1,8 +1,29 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import { openPopup, closePopup } from './utils.js';
+import { 
+    popupList,
+    editProfileFormElement,
+    editProfileNameInput,
+    editProfileJobInput,
+    editProfileNameElement,
+    editProfileJobElement,
+    editProfilePopupElement,
+    editProfileOpenButton,
+    cardsContainer,
+    itemElement,
+    imagePopup,
+    popupImage,
+    subtitleElement,
+    initialCards,
+    addCardOpenButton,
+    addCardPopupElement,
+    addCardFormElement,
+    addCardNameInput,
+    addCardLinkInput,
+    config,
+ } from './constants.js';
 
-const popupList = document.querySelectorAll('.popup');
 function handleMouseDownEvent(evt, popup) {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
         closePopup(popup)
@@ -15,12 +36,6 @@ popupList.forEach(popup => {
 
 
 // Поп-ап редактировать профиль
-const editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
-const editProfileNameInput = editProfileFormElement.querySelector('.popup__input[name="name"]');
-const editProfileJobInput = editProfileFormElement.querySelector('.popup__input[name="job"]');
-const editProfileNameElement = document.querySelector('.profile__name');
-const editProfileJobElement = document.querySelector('.profile__position');
-const editProfilePopupElement = document.querySelector('#edit-profile');
 
 function setEditProfileInputValues() {
     editProfileNameInput.value = editProfileNameElement.textContent;
@@ -34,7 +49,6 @@ function openEditProfileHandler(evt) {
     formValidators['edit-profile'].resetValidation();
 }
 
-const editProfileOpenButton = document.querySelector('.profile__edit-button');
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function setEditProfileDivValues() {
@@ -50,12 +64,7 @@ function submitEditProfileHandler(evt) {
 editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 
 // Добавление карточки
-const cardsContainer = document.querySelector('.elements');
-const cardTemplate = document.querySelector('#card-template').content;
-const itemElement = cardTemplate.querySelector('.elements__item');
-const imagePopup = document.querySelector('#image-details');
-const popupImage = imagePopup.querySelector('.popup__image');
-const subtitleElement = imagePopup.querySelector('.popup__subtitle');
+
 
 function handleCardClick(name, link) {
     popupImage.setAttribute('src', link);
@@ -78,42 +87,9 @@ function addCard(nameValue, linkValue) {
     cardsContainer.prepend(createCard(nameValue, linkValue));
 }
 
-const initialCards = [
-    {
-        name: 'Хорген,Швейцария',
-        link: 'https://images.unsplash.com/photo-1637145919816-76a50b7a1d4a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1142&q=80'
-    },
-    {
-        name: 'Нью-Гэмпшир,США',
-        link: 'https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    },
-    {
-        name: 'Лаго-ди-Фузине,Италия',
-        link: 'https://images.unsplash.com/photo-1470748085385-5fbb3018c796?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1124&q=80'
-    },
-    {
-        name: 'Гатлинбург,США',
-        link: 'https://images.unsplash.com/photo-1509838174235-432f709c7bfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    },
-    {
-        name: 'Ферма Сидр-Хилл,США',
-        link: 'https://images.unsplash.com/photo-1475502085205-ffe028919c87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    },
-    {
-        name: 'Лак-дю-Фламбо,США',
-        link: 'https://images.unsplash.com/photo-1602776256868-8bd74e6aae19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'
-    },
-];
-
 initialCards.forEach(card => addCard(card.name, card.link));
 
 // Поп-ап новое место
-const addCardOpenButton = document.querySelector('.profile__add-button');
-const addCardPopupElement = document.querySelector('#add-card');
-
-const addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
-const addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
-const addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
 
 addCardOpenButton.addEventListener('click', () => {
     openPopup(addCardPopupElement);
@@ -133,16 +109,6 @@ function submitAddCardHandler(evt) {
 }
 
 addCardFormElement.addEventListener('submit', submitAddCardHandler);
-
-const config = {
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-button',
-    inactiveButtonClass: 'popup__save-button_disabled',
-    inputErrorClass: 'popup__input_type-error',
-    errorClass: 'popup__input-error_visible',
-    fieldsetSelector: '.popup__fieldset',
-    formSelector: '.popup__body',
-};
 
 const formValidators = {}
 
