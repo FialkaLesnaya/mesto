@@ -9,7 +9,8 @@ export const editProfilePopupElement = document.querySelector('#edit-profile');
 
 export const editProfileOpenButton = document.querySelector('.profile__edit-button');
 
-export const cardsContainer = document.querySelector('.elements');
+export const cardsContainerSelector = '.elements';
+export const cardsContainer = document.querySelector(cardsContainerSelector);
 const cardTemplate = document.querySelector('#card-template').content;
 export const itemElement = cardTemplate.querySelector('.elements__item');
 export const imagePopup = document.querySelector('#image-details');

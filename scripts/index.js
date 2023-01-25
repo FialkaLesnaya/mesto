@@ -22,7 +22,9 @@ import {
     addCardNameInput,
     addCardLinkInput,
     config,
+    cardsContainerSelector,
  } from './constants.js';
+ import Section from "./Section.js";
 
 function handleMouseDownEvent(evt, popup) {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
@@ -87,8 +89,15 @@ function addCard(nameValue, linkValue) {
     cardsContainer.prepend(createCard(nameValue, linkValue));
 }
 
-initialCards.forEach(card => addCard(card.name, card.link));
 
+const defaultCardList = new Section({ items: initialCards, renderer: (item) => {
+    const card = new Card(item.name, item.link, itemElement, handleCardClick);
+    const cardElement = card.getCard();
+  
+        defaultCardList.addItem(cardElement);
+  } }, cardsContainerSelector);
+
+  defaultCardList.renderItems();
 // Поп-ап новое место
 
 addCardOpenButton.addEventListener('click', () => {
