@@ -25,6 +25,7 @@ import {
     cardsContainerSelector,
  } from './constants.js';
  import Section from "./Section.js";
+ import PopupWithImage from './PopupWithImage.js';
 
 function handleMouseDownEvent(evt, popup) {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
@@ -69,12 +70,10 @@ editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 
 
 function handleCardClick(name, link) {
-    popupImage.setAttribute('src', link);
-    popupImage.setAttribute('alt', name.textContent);
-    subtitleElement.textContent = name.textContent;
-
-    openPopup(imagePopup);
-    imagePopup.classList.toggle('popup_image-overlay')
+    new PopupWithImage('#image-details', {
+        link: link,
+        name: name.textContent,
+    }).open();
 }
 
 
