@@ -104,19 +104,14 @@ const defaultCardList = new Section({ items: initialCards, renderer: (item) => {
 
 addCardOpenButton.addEventListener('click', () => {
     const popup = new PopupWithForm('#add-card', submitAddCardHandler);
-    popup.setEventListeners();
     popup.open();
+    popup.setEventListeners();
     formValidators['add-card'].resetValidation();
 });
 
-function submitAddCardHandler(evt, inputValues) {
-    evt.preventDefault();
+function submitAddCardHandler(inputValues) {
     addCard(inputValues.name, inputValues.link);
-    // closeAddCardButtonHandler(evt);
-    evt.target.reset();
 }
-
-addCardFormElement.addEventListener('submit', submitAddCardHandler);
 
 const formValidators = {}
 
