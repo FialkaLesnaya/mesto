@@ -27,6 +27,7 @@ import {
  import Section from "./Section.js";
  import PopupWithImage from './PopupWithImage.js';
  import PopupWithForm from './PopupWithForm.js';
+ import UserInfo from "./UserInfo.js";
 
 function handleMouseDownEvent(evt, popup) {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
@@ -40,15 +41,17 @@ popupList.forEach(popup => {
 
 
 // Поп-ап редактировать профиль
+const userInfo = new UserInfo('.profile__name', '.profile__position');
 
 function setEditProfileInputValues(name, job) {
-    editProfileNameInput.value = editProfileNameElement.textContent;
-    editProfileJobInput.value = editProfileJobElement.textContent;
+    editProfileNameInput.value = name;
+    editProfileJobInput.value = job;
 }
 
 function openEditProfileHandler(evt) {
     evt.preventDefault();
-    setEditProfileInputValues();
+    const values = userInfo.getUserInfo();
+    setEditProfileInputValues(values.name, values.job);
     const popup = new PopupWithForm('#edit-profile', submitEditProfileHandler);
     popup.open();
     popup.setEventListeners();
@@ -58,8 +61,7 @@ function openEditProfileHandler(evt) {
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function setEditProfileDivValues(name, job) {
-    editProfileNameElement.textContent = editProfileNameInput.value;
-    editProfileJobElement.textContent = editProfileJobInput.value;
+    userInfo.setUserInfo(editProfileNameInput.value, editProfileJobInput.value)
 }
 
 function submitEditProfileHandler(inputValues) {
