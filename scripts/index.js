@@ -41,7 +41,7 @@ popupList.forEach(popup => {
 
 // Поп-ап редактировать профиль
 
-function setEditProfileInputValues() {
+function setEditProfileInputValues(name, job) {
     editProfileNameInput.value = editProfileNameElement.textContent;
     editProfileJobInput.value = editProfileJobElement.textContent;
 }
@@ -49,21 +49,21 @@ function setEditProfileInputValues() {
 function openEditProfileHandler(evt) {
     evt.preventDefault();
     setEditProfileInputValues();
-    openPopup(editProfilePopupElement);
+    const popup = new PopupWithForm('#edit-profile', submitEditProfileHandler);
+    popup.open();
+    popup.setEventListeners();
     formValidators['edit-profile'].resetValidation();
 }
 
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
-function setEditProfileDivValues() {
+function setEditProfileDivValues(name, job) {
     editProfileNameElement.textContent = editProfileNameInput.value;
     editProfileJobElement.textContent = editProfileJobInput.value;
 }
 
-function submitEditProfileHandler(evt) {
-    evt.preventDefault();
-    setEditProfileDivValues();
-    closePopup(editProfilePopupElement);
+function submitEditProfileHandler(inputValues) {
+    setEditProfileDivValues(inputValues.name, inputValues.job);
 }
 editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 

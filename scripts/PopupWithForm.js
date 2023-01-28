@@ -7,7 +7,7 @@ export default class PopupWithForm extends Popup {
 
         this._addCardNameInput = this._popup.querySelector('.popup__input[name="name"]');
         this._addCardLinkInput = this._popup.querySelector('.popup__input[name="link"]');
-
+        this._editProfileJobInput = this._popup.querySelector('.popup__input[name="job"]');
         this._addCardFormElement = this._popup.querySelector('.popup__body[name="add-card"]');
     }
 
