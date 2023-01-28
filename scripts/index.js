@@ -26,6 +26,7 @@ import {
  } from './constants.js';
  import Section from "./Section.js";
  import PopupWithImage from './PopupWithImage.js';
+ import PopupWithForm from './PopupWithForm.js';
 
 function handleMouseDownEvent(evt, popup) {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
@@ -100,19 +101,16 @@ const defaultCardList = new Section({ items: initialCards, renderer: (item) => {
 // Поп-ап новое место
 
 addCardOpenButton.addEventListener('click', () => {
-    openPopup(addCardPopupElement);
+    const popup = new PopupWithForm('#add-card', submitAddCardHandler);
+    popup.setEventListeners();
+    popup.open();
     formValidators['add-card'].resetValidation();
 });
 
-function closeAddCardButtonHandler(evt) {
+function submitAddCardHandler(evt, inputValues) {
     evt.preventDefault();
-    closePopup(addCardPopupElement);
-}
-
-function submitAddCardHandler(evt) {
-    evt.preventDefault();
-    addCard(addCardNameInput.value, addCardLinkInput.value);
-    closeAddCardButtonHandler(evt);
+    addCard(inputValues.name, inputValues.link);
+    // closeAddCardButtonHandler(evt);
     evt.target.reset();
 }
 
