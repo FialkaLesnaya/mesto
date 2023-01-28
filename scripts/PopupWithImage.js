@@ -8,6 +8,7 @@
     }
 
     open() {
+        super.open();
         this._popup.setAttribute('src', this._imageData.link);
         this._popup.setAttribute('alt', this._imageData.name);
         this._subtitleElement.textContent = this._imageData.name;
