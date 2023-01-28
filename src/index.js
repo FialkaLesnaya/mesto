@@ -1,6 +1,7 @@
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import { openPopup, closePopup } from './utils.js';
+import './pages/index.css';
+import Card from "./scripts/Card.js";
+import FormValidator from "./scripts/FormValidator.js";
+import { openPopup, closePopup } from './scripts/utils.js';
 import { 
     popupList,
     editProfileFormElement,
@@ -23,11 +24,11 @@ import {
     addCardLinkInput,
     config,
     cardsContainerSelector,
- } from './constants.js';
- import Section from "./Section.js";
- import PopupWithImage from './PopupWithImage.js';
- import PopupWithForm from './PopupWithForm.js';
- import UserInfo from "./UserInfo.js";
+ } from './scripts/constants.js';
+ import Section from "./scripts/Section.js";
+ import PopupWithImage from './scripts/PopupWithImage.js';
+ import PopupWithForm from './scripts/PopupWithForm.js';
+ import UserInfo from "./scripts/UserInfo.js";
 
 function handleMouseDownEvent(evt, popup) {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
