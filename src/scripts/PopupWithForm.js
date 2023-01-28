@@ -5,22 +5,19 @@ export default class PopupWithForm extends Popup {
         super(popupSelector);
         this._submitHandler = submitHandler;
 
-        this._addCardNameInput = this._popup.querySelector('.popup__input[name="name"]');
-        this._addCardLinkInput = this._popup.querySelector('.popup__input[name="link"]');
-        this._editProfileJobInput = this._popup.querySelector('.popup__input[name="job"]');
-        this._addCardFormElement = this._popup.querySelector('.popup__body[name="add-card"]');
+        this._inputs = this._popup.querySelectorAll('.popup__input');
+        this._formElement = this._popup.querySelector('.popup__body');
     }
 
     _getInputValues() {
-        return {
-            name: this._addCardNameInput.value,
-            link: this._addCardLinkInput.value,
-        }
+        const values = {};
+        Object.values(this._inputs).forEach((input) => values[input.name] = input.value);
+        return values;
     }
 
     setEventListeners() {
         super.setEventListeners();
-        this._addCardFormElement.addEventListener('submit', this._submit.bind(this));
+        this._formElement.addEventListener('submit', this._submit.bind(this));
     }
 
     _submit(evt) {
@@ -32,6 +29,6 @@ export default class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        this._addCardFormElement.removeEventListener('submit', this._submit);
+        this._formElement.removeEventListener('submit', this._submit);
     }
 }
