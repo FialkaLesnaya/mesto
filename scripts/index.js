@@ -71,10 +71,12 @@ editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 
 
 function handleCardClick(name, link) {
-    new PopupWithImage('#image-details', {
+    const popup = new PopupWithImage('#image-details', {
         link: link,
         name: name.textContent,
-    }).open();
+    });
+    popup.setEventListeners();
+    popup.open();
 }
 
 
