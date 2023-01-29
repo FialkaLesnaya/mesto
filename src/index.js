@@ -19,12 +19,13 @@ import UserInfo from "./scripts/UserInfo.js";
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo('.profile__name', '.profile__position');
 
+const editProfilePopup = new PopupWithForm('#edit-profile', submitEditProfileHandler);
+editProfilePopup.setEventListeners();
+
 function openEditProfileHandler(evt) {
     evt.preventDefault();
-    const popup = new PopupWithForm('#edit-profile', submitEditProfileHandler);
-    popup.setInputValues(userInfo.getUserInfo());
-    popup.open();
-    popup.setEventListeners();
+    editProfilePopup.setInputValues(userInfo.getUserInfo());
+    editProfilePopup.open();
     formValidators['edit-profile'].resetValidation();
 }
 
@@ -43,21 +44,22 @@ function handleCardClick(name, link) {
     popup.open();
 }
 
-const defaultCardList = new Section({
+const cardList = new Section({
     items: initialCards, renderer: (item) => {
         const card = new Card(item.name, item.link, itemElement, handleCardClick);
         const cardElement = card.getCard();
 
-        defaultCardList.addItem(cardElement);
+        cardList.addItem(cardElement);
     }
 }, cardsContainerSelector);
 
-defaultCardList.renderItems();
+cardList.renderItems();
+
+const addCardPopup = new PopupWithForm('#add-card', submitAddCardHandler);
+addCardPopup.setEventListeners();
 
 addCardOpenButton.addEventListener('click', () => {
-    const popup = new PopupWithForm('#add-card', submitAddCardHandler);
-    popup.open();
-    popup.setEventListeners();
+    addCardPopup.open();
     formValidators['add-card'].resetValidation();
 });
 
@@ -70,11 +72,10 @@ function createCard(nameValue, linkValue) {
 
 
 function addCard(nameValue, linkValue) {
-    defaultCardList.addItem(createCard(nameValue, linkValue))
+    cardList.addItem(createCard(nameValue, linkValue))
 }
 
 function submitAddCardHandler(inputValues) {
-    defaultCardList.addItem();
     addCard(inputValues.name, inputValues.link);
 }
 
