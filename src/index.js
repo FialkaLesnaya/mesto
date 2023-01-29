@@ -19,16 +19,10 @@ import UserInfo from "./scripts/UserInfo.js";
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo('.profile__name', '.profile__position');
 
-function setEditProfileInputValues(name, job) {
-    editProfileNameInput.value = name;
-    editProfileJobInput.value = job;
-}
-
 function openEditProfileHandler(evt) {
     evt.preventDefault();
-    const values = userInfo.getUserInfo();
-    setEditProfileInputValues(values.name, values.job);
     const popup = new PopupWithForm('#edit-profile', submitEditProfileHandler);
+    popup.setInputValues(userInfo.getUserInfo());
     popup.open();
     popup.setEventListeners();
     formValidators['edit-profile'].resetValidation();
