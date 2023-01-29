@@ -49,7 +49,7 @@ function handleCardClick(name, link) {
 
 const cardList = new Section({
     items: initialCards, renderer: (item) => {
-        addCard(item.name, item.link);
+        cardList.addItem(createCard(item.name, item.link))
     }
 }, cardsContainerSelector);
 
@@ -69,12 +69,9 @@ function createCard(nameValue, linkValue) {
     return cardElement
 }
 
-function addCard(nameValue, linkValue) {
-    cardList.addItem(createCard(nameValue, linkValue))
-}
-
 function submitAddCardHandler(inputValues) {
-    addCard(inputValues.name, inputValues.link);
+    cardList.addCard(inputValues);
+    cardList.renderItems();
 }
 
 const formValidators = {}
