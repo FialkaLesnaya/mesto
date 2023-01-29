@@ -1,6 +1,6 @@
 import './pages/index.css';
-import Card from "./scripts/Card.js";
-import FormValidator from "./scripts/FormValidator.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 import {
     editProfileOpenButton,
     itemElement,
@@ -13,11 +13,11 @@ import {
     addCardPopupSelector,
     profileNameSelector,
     profileJobSelector,
-} from './scripts/constants.js';
-import Section from "./scripts/Section.js";
-import PopupWithImage from './scripts/PopupWithImage.js';
-import PopupWithForm from './scripts/PopupWithForm.js';
-import UserInfo from "./scripts/UserInfo.js";
+} from '../scripts/constants.js';
+import Section from "../components/Section.js";
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from "../components/UserInfo.js";
 
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
@@ -47,6 +47,12 @@ function handleCardClick(name, link) {
     popup.open();
 }
 
+function createCard(nameValue, linkValue) {
+    const card = new Card(nameValue, linkValue, itemElement, handleCardClick);
+    const cardElement = card.getCard();
+    return cardElement
+}
+
 const cardList = new Section({
     items: initialCards, renderer: (item) => {
         cardList.addItem(createCard(item.name, item.link))
@@ -55,6 +61,11 @@ const cardList = new Section({
 
 cardList.renderItems();
 
+function submitAddCardHandler(inputValues) {
+    cardList.addCard(inputValues);
+    cardList.renderItems();
+}
+
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardHandler);
 addCardPopup.setEventListeners();
 
@@ -62,17 +73,6 @@ addCardOpenButton.addEventListener('click', () => {
     addCardPopup.open();
     formValidators['add-card'].resetValidation();
 });
-
-function createCard(nameValue, linkValue) {
-    const card = new Card(nameValue, linkValue, itemElement, handleCardClick);
-    const cardElement = card.getCard();
-    return cardElement
-}
-
-function submitAddCardHandler(inputValues) {
-    cardList.addCard(inputValues);
-    cardList.renderItems();
-}
 
 const formValidators = {}
 
