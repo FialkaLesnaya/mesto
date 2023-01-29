@@ -1,22 +1,20 @@
 import './pages/index.css';
 import Card from "./scripts/Card.js";
 import FormValidator from "./scripts/FormValidator.js";
-import { 
-    editProfileFormElement,
+import {
     editProfileNameInput,
     editProfileJobInput,
     editProfileOpenButton,
-    cardsContainer,
     itemElement,
     initialCards,
     addCardOpenButton,
     config,
     cardsContainerSelector,
- } from './scripts/constants.js';
- import Section from "./scripts/Section.js";
- import PopupWithImage from './scripts/PopupWithImage.js';
- import PopupWithForm from './scripts/PopupWithForm.js';
- import UserInfo from "./scripts/UserInfo.js";
+} from './scripts/constants.js';
+import Section from "./scripts/Section.js";
+import PopupWithImage from './scripts/PopupWithImage.js';
+import PopupWithForm from './scripts/PopupWithForm.js';
+import UserInfo from "./scripts/UserInfo.js";
 
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo('.profile__name', '.profile__position');
@@ -39,10 +37,8 @@ function openEditProfileHandler(evt) {
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function submitEditProfileHandler(inputValues) {
-    console.log(inputValues);
     userInfo.setUserInfo(inputValues.name, inputValues.job)
 }
-editProfileFormElement.addEventListener('submit', submitEditProfileHandler);
 
 function handleCardClick(name, link) {
     const popup = new PopupWithImage('#image-details', {
@@ -53,6 +49,24 @@ function handleCardClick(name, link) {
     popup.open();
 }
 
+const defaultCardList = new Section({
+    items: initialCards, renderer: (item) => {
+        const card = new Card(item.name, item.link, itemElement, handleCardClick);
+        const cardElement = card.getCard();
+
+        defaultCardList.addItem(cardElement);
+    }
+}, cardsContainerSelector);
+
+defaultCardList.renderItems();
+
+addCardOpenButton.addEventListener('click', () => {
+    const popup = new PopupWithForm('#add-card', submitAddCardHandler);
+    popup.open();
+    popup.setEventListeners();
+    formValidators['add-card'].resetValidation();
+});
+
 
 function createCard(nameValue, linkValue) {
     const card = new Card(nameValue, linkValue, itemElement, handleCardClick);
@@ -62,27 +76,11 @@ function createCard(nameValue, linkValue) {
 
 
 function addCard(nameValue, linkValue) {
-    cardsContainer.prepend(createCard(nameValue, linkValue));
+    defaultCardList.addItem(createCard(nameValue, linkValue))
 }
 
-
-const defaultCardList = new Section({ items: initialCards, renderer: (item) => {
-    const card = new Card(item.name, item.link, itemElement, handleCardClick);
-    const cardElement = card.getCard();
-  
-        defaultCardList.addItem(cardElement);
-  } }, cardsContainerSelector);
-
-  defaultCardList.renderItems();
-
-addCardOpenButton.addEventListener('click', () => {
-    const popup = new PopupWithForm('#add-card', submitAddCardHandler);
-    popup.open();
-    popup.setEventListeners();
-    formValidators['add-card'].resetValidation();
-});
-
 function submitAddCardHandler(inputValues) {
+    defaultCardList.addItem();
     addCard(inputValues.name, inputValues.link);
 }
 
