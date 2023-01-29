@@ -1,21 +1,18 @@
-export const popupList = document.querySelectorAll('.popup');
 
-export const editProfileFormElement = document.querySelector('.popup__body[name="edit-profile"]');
-export const editProfileNameInput = editProfileFormElement.querySelector('.popup__input[name="name"]');
-export const editProfileJobInput = editProfileFormElement.querySelector('.popup__input[name="job"]');
-export const editProfileNameElement = document.querySelector('.profile__name');
-export const editProfileJobElement = document.querySelector('.profile__position');
-export const editProfilePopupElement = document.querySelector('#edit-profile');
 
 export const editProfileOpenButton = document.querySelector('.profile__edit-button');
+export const addCardOpenButton = document.querySelector('.profile__add-button');
+
 
 export const cardsContainerSelector = '.elements';
-export const cardsContainer = document.querySelector(cardsContainerSelector);
+export const editProfilePopupSelector = '#edit-profile';
+export const imagePopupSelector = '#image-details';
+export const addCardPopupSelector = '#add-card';
+export const profileNameSelector = '.profile__name';
+export const profileJobSelector = '.profile__position';
+
 const cardTemplate = document.querySelector('#card-template').content;
 export const itemElement = cardTemplate.querySelector('.elements__item');
-export const imagePopup = document.querySelector('#image-details');
-export const popupImage = imagePopup.querySelector('.popup__image');
-export const subtitleElement = imagePopup.querySelector('.popup__subtitle');
 
 export const initialCards = [
     {
@@ -43,13 +40,6 @@ export const initialCards = [
         link: 'https://images.unsplash.com/photo-1602776256868-8bd74e6aae19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80'
     },
 ];
-
-export const addCardOpenButton = document.querySelector('.profile__add-button');
-export const addCardPopupElement = document.querySelector('#add-card');
-
-export const addCardFormElement = document.querySelector('.popup__body[name="add-card"]');
-export const addCardNameInput = addCardFormElement.querySelector('.popup__input[name="name"]');
-export const addCardLinkInput = addCardFormElement.querySelector('.popup__input[name="link"]');
 
 export const config = {
     inputSelector: '.popup__input',
