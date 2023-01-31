@@ -38,13 +38,14 @@ function submitEditProfileHandler(inputValues) {
     userInfo.setUserInfo(inputValues.name, inputValues.job)
 }
 
+const popup = new PopupWithImage(imagePopupSelector);
+popup.setEventListeners();
+
 function handleCardClick(name, link) {
-    const popup = new PopupWithImage(imagePopupSelector, {
+    popup.open({
         link: link,
         name: name.textContent,
     });
-    popup.setEventListeners();
-    popup.open();
 }
 
 function createCard(nameValue, linkValue) {
@@ -62,7 +63,7 @@ const cardList = new Section({
 cardList.renderItems();
 
 function submitAddCardHandler(inputValues) {
-    cardList.addCard(inputValues);
+    cardList.addItem(createCard(inputValues.name, inputValues.link));
     cardList.renderItems();
 }
 

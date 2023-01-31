@@ -16,10 +16,6 @@ export default class Section {
         this._container.prepend(item);
     }
 
-    addCard(values) {
-        this._items.push({ name: values.name, link: values.link });
-    }
-
     clear() {
         this._container.innerHTML = '';
       }
