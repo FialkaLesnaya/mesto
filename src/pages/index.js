@@ -64,7 +64,6 @@ cardList.renderItems();
 
 function submitAddCardHandler(inputValues) {
     cardList.addItem(createCard(inputValues.name, inputValues.link));
-    cardList.renderItems();
 }
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardHandler);
