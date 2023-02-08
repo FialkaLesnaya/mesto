@@ -13,11 +13,13 @@ import {
     addCardPopupSelector,
     profileNameSelector,
     profileJobSelector,
+    profileAvatar,
 } from '../scripts/constants.js';
 import Section from "../components/Section.js";
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from "../components/UserInfo.js";
+import Api from "../scripts/api.js";
 
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
@@ -88,3 +90,12 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
+
+//  
+
+const api = new Api();
+api.getCurrentUser()
+.then(res => {
+    userInfo.setUserInfo(res.name, res.about);
+    profileAvatar.setAttribute('src', res.avatar);
+});

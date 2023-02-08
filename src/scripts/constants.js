@@ -50,3 +50,5 @@ export const config = {
     fieldsetSelector: '.popup__fieldset',
     formSelector: '.popup__body',
 };
+
+export const profileAvatar = document.querySelector('.profile__avatar');
