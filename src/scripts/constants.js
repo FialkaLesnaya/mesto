@@ -1,5 +1,3 @@
-
-
 export const editProfileOpenButton = document.querySelector('.profile__edit-button');
 export const addCardOpenButton = document.querySelector('.profile__add-button');
 

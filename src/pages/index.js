@@ -36,7 +36,7 @@ api.loadCards()
 .then(res => {
     cardList = new Section({
         items: res, renderer: (item) => {
-            cardList.addItem(createCard(item.name, item.link))
+            cardList.addItem(createCard(item.name, item.link, item.likes.length))
         }
     }, cardsContainerSelector);
     cardList.renderItems();
@@ -71,8 +71,8 @@ function handleCardClick(name, link) {
     });
 }
 
-function createCard(nameValue, linkValue) {
-    const card = new Card(nameValue, linkValue, itemElement, handleCardClick);
+function createCard(nameValue, linkValue, countValue) {
+    const card = new Card(nameValue, linkValue, countValue, itemElement, handleCardClick);
     const cardElement = card.getCard();
     return cardElement
 }
@@ -80,7 +80,7 @@ function createCard(nameValue, linkValue) {
 function submitAddCardHandler(inputValues) {
     api.editCard(inputValues.name, inputValues.link)
     .then(res => {
-        cardList.addItem(createCard(res.name, res.link)); 
+        cardList.addItem(createCard(res.name, res.link, res.likes.length)); 
     })
 }
 
