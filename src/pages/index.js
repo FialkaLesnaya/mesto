@@ -31,9 +31,10 @@ api.getCurrentUser()
     profileAvatar.setAttribute('src', res.avatar);
 });
 
+let cardList;
 api.loadCards()
 .then(res => {
-    const cardList = new Section({
+    cardList = new Section({
         items: res, renderer: (item) => {
             cardList.addItem(createCard(item.name, item.link))
         }
@@ -77,7 +78,10 @@ function createCard(nameValue, linkValue) {
 }
 
 function submitAddCardHandler(inputValues) {
-    cardList.addItem(createCard(inputValues.name, inputValues.link));
+    api.editCard(inputValues.name, inputValues.link)
+    .then(res => {
+        cardList.addItem(createCard(res.name, res.link)); 
+    })
 }
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardHandler);

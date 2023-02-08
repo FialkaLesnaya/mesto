@@ -35,4 +35,19 @@ export default class Api {
             .then(res => res.json());
     }
 
+    editCard(name, link) {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards`, {
+            method: 'POST',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                link: link,
+            })
+        })
+            .then(res => res.json());
+    }
+
 }
