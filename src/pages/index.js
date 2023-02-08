@@ -24,6 +24,23 @@ import Api from "../scripts/api.js";
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
 
+const api = new Api();
+api.getCurrentUser()
+.then(res => {
+    userInfo.setUserInfo(res.name, res.about);
+    profileAvatar.setAttribute('src', res.avatar);
+});
+
+api.loadCards()
+.then(res => {
+    const cardList = new Section({
+        items: res, renderer: (item) => {
+            cardList.addItem(createCard(item.name, item.link))
+        }
+    }, cardsContainerSelector);
+    cardList.renderItems();
+});
+
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, submitEditProfileHandler);
 editProfilePopup.setEventListeners();
 
@@ -56,14 +73,6 @@ function createCard(nameValue, linkValue) {
     return cardElement
 }
 
-const cardList = new Section({
-    items: initialCards, renderer: (item) => {
-        cardList.addItem(createCard(item.name, item.link))
-    }
-}, cardsContainerSelector);
-
-cardList.renderItems();
-
 function submitAddCardHandler(inputValues) {
     cardList.addItem(createCard(inputValues.name, inputValues.link));
 }
@@ -91,11 +100,3 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
-//  
-
-const api = new Api();
-api.getCurrentUser()
-.then(res => {
-    userInfo.setUserInfo(res.name, res.about);
-    profileAvatar.setAttribute('src', res.avatar);
-});

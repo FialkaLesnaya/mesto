@@ -10,4 +10,13 @@ export default class Api {
         })
             .then(res => res.json());
     }
-}
+
+    loadCards() {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards`, {
+            headers: {
+                authorization: this.token,
+            }
+        })
+            .then(res => res.json());
+    }
+    }
