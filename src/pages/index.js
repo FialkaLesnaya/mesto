@@ -54,7 +54,10 @@ function openEditProfileHandler(evt) {
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function submitEditProfileHandler(inputValues) {
-    userInfo.setUserInfo(inputValues.name, inputValues.job)
+    api.editProfile(inputValues.name, inputValues.job)
+    .then(res => {
+        userInfo.setUserInfo(res.name, res.about);
+    })
 }
 
 const popup = new PopupWithImage(imagePopupSelector);

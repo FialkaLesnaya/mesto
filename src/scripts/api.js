@@ -19,4 +19,20 @@ export default class Api {
         })
             .then(res => res.json());
     }
+
+    editProfile(name, about) {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                about: about
+            })
+        })
+            .then(res => res.json());
     }
+
+}
