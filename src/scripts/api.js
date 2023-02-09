@@ -4,18 +4,29 @@ export default class Api {
         this.headers = options.headers;
     }
 
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+
+        // если ошибка, отклоняем промис
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
+    _logError(err) {
+        console.log(`Случилась ошибка ${err}`); // выведем ошибку в консоль
+    }
+
     getCurrentUser() {
-        return fetch(`${this.baseUrl}/users/me`, {
-            headers: this.headers,
-        })
-            .then(res => res.json());
+        return fetch(`${this.baseUrl}/users/me`, { headers: this.headers })
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     loadCards() {
-        return fetch(`${this.baseUrl}/cards`, {
-            headers: this.headers,
-        })
-            .then(res => res.json());
+        return fetch(`${this.baseUrl}/cards`, { headers: this.headers })
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     editProfile(name, about) {
@@ -27,7 +38,8 @@ export default class Api {
                 about: about
             })
         })
-            .then(res => res.json());
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     editCard(name, link) {
@@ -39,7 +51,8 @@ export default class Api {
                 link: link,
             })
         })
-            .then(res => res.json());
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     deleteCard(cardId) {
@@ -48,7 +61,8 @@ export default class Api {
             headers: this.headers,
 
         })
-            .then(res => res.json());
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     likeCard(cardId) {
@@ -57,7 +71,8 @@ export default class Api {
             headers: this.headers,
 
         })
-            .then(res => res.json());
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     deleteLikeCard(cardId) {
@@ -66,7 +81,8 @@ export default class Api {
             headers: this.headers,
 
         })
-            .then(res => res.json());
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 
     updateAvatar(avatar) {
@@ -77,6 +93,7 @@ export default class Api {
                 avatar: avatar,
             })
         })
-            .then(res => res.json());
+            .then(res => this._checkResponse(res))
+            .catch(err => this._logError(err));
     }
 }
