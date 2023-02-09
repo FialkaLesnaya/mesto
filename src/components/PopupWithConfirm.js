@@ -17,9 +17,11 @@ export default class PopupWithConfirm extends Popup {
 
     _submit(evt) {
         evt.preventDefault();
-        this._submitHandler(this.elementId);
-        this.element.remove();
-        this.close();
+        this._submitHandler(this.elementId)
+            .then(() => {
+                this.element.remove();
+                this.close();
+            });
     }
 
     open(element, elementId) {

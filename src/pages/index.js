@@ -70,9 +70,11 @@ function openEditProfileHandler(evt) {
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function submitEditProfileHandler(inputValues) {
-    api.editProfile(inputValues.name, inputValues.job)
+    editProfilePopup.setLoading()
+    return api.editProfile(inputValues.name, inputValues.job)
         .then(res => {
             userInfo.setUserInfo(res.name, res.about);
+            editProfilePopup.resetLoading();
         })
 }
 
@@ -82,8 +84,10 @@ const updateAvatarPopup = new PopupWithForm(updateAvatarPopupSelector, submitUpd
 updateAvatarPopup.setEventListeners();
 
 function submitUpdateAvatarHandler(inputValues) {
-    api.updateAvatar(inputValues.link).then((res) => {
+    updateAvatarPopup.setLoading()
+    return api.updateAvatar(inputValues.link).then((res) => {
         avatarImage.setAttribute('src', res.avatar);
+        updateAvatarPopup.resetLoading();
     });
 }
 
@@ -135,15 +139,18 @@ function createCard(nameValue, linkValue, countValue, idValue, ownerId) {
     return cardElement
 }
 
-function submitAddCardHandler(inputValues) {
-    api.editCard(inputValues.name, inputValues.link)
-        .then(res => {
-            cardList.addItem(createCard(res.name, res.link, res.likes.length, res._id, res.owner._id));
-        })
-}
-
 const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardHandler);
 addCardPopup.setEventListeners();
+
+function submitAddCardHandler(inputValues) {
+    addCardPopup.setLoading()
+    return api.editCard(inputValues.name, inputValues.link)
+        .then(res => {
+            cardList.addItem(createCard(res.name, res.link, res.likes.length, res._id, res.owner._id));
+
+            addCardPopup.resetLoading()
+        })
+}
 
 addCardOpenButton.addEventListener('click', () => {
     addCardPopup.open();
