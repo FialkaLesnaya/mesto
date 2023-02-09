@@ -105,7 +105,7 @@ function handleCardClick(name, link) {
 }
 
 function submitDeleteCardHandler(id) {
-    api.deleteCard(id);
+    return api.deleteCard(id);
 }
 
 const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, submitDeleteCardHandler);
