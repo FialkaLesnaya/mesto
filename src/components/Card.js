@@ -1,16 +1,12 @@
 export default class Card {
-    constructor(name, link, count, id, selector, handleCardClick, handleDeleteCardClick, ownerId, myId, handleLikeClick, handlDeleteLikeClick) {
-        this.name = name;
-        this.link = link;
+    constructor(cardData, currentUserId, selector, handleCardClick, handleDeleteCardClick, handleLikeClick, handlDeleteLikeClick) {
         this.selector = selector;
         this._handleCardClick = handleCardClick;
-        this.count = count;
         this._handleDeleteCardClick = handleDeleteCardClick;
-        this.id = id;
-        this.ownerId = ownerId;
-        this.myId = myId;
         this._handleLikeClick = handleLikeClick;
         this._handlDeleteLikeClick = handlDeleteLikeClick;
+        this._cardData = cardData;
+        this._currentUserId = currentUserId;
 
         this.cardElement = this.selector.cloneNode(true);
         this.cardNameElement = this.cardElement.querySelector('.elements__name');
@@ -18,7 +14,8 @@ export default class Card {
         this.likeButton = this.cardElement.querySelector('.elements__like-button');
         this.trashButton = this.cardElement.querySelector('.elements__trash');
         this.itemLikeCount = this.cardElement.querySelector('.elements__like-count');
-        if (this.myId != this.ownerId) {
+
+        if (this._currentUserId != this._cardData.owner._id) {
             this.trashButton.remove();
         }
     }
@@ -28,19 +25,22 @@ export default class Card {
     }
 
     _generateCard() {
-        this.cardNameElement.textContent = this.name;
-        this.cardNameElement.setAttribute('title', this.name);
-        this.cardImage.setAttribute('src', this.link);
-        this.cardImage.setAttribute('alt', this.name);
-        this.itemLikeCount.textContent = this.count;
+        this.cardNameElement.textContent = this._cardData.name;
+        this.cardNameElement.setAttribute('title', this._cardData.name);
+        this.cardImage.setAttribute('src', this._cardData.link);
+        this.cardImage.setAttribute('alt', this._cardData.name);
+        this.itemLikeCount.textContent = this._cardData.likes.length;
+        if (this._cardData.likes.find(element => element._id === this._currentUserId)) {
+            this.likeButton.classList.add('elements__like-button-active');
+        }
         this._setEventListeners();
         return this.cardElement;
     }
 
     _setEventListeners() {
         this.cardImage.addEventListener('click', (evt) => this._openImageDetail(evt, this._handleCardClick));
-        this.likeButton.addEventListener('click', (evt) => this._addLikeHandler(evt, this._handlDeleteLikeClick, this._handleLikeClick, this.id, this.itemLikeCount));
-        this.trashButton.addEventListener('click', (evt) => this._removeElementHandler(evt, this._handleDeleteCardClick, this.id));
+        this.likeButton.addEventListener('click', (evt) => this._addLikeHandler(evt, this._handlDeleteLikeClick, this._handleLikeClick, this._cardData._id, this.itemLikeCount));
+        this.trashButton.addEventListener('click', (evt) => this._removeElementHandler(evt, this._handleDeleteCardClick, this._cardData._id));
     }
 
     // Лайк карточки

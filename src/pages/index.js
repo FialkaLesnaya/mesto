@@ -49,7 +49,7 @@ api.getCurrentUser()
     .then(res => {
         cardList = new Section({
             items: res, renderer: (item) => {
-                cardList.addItem(createCard(item.name, item.link, item.likes.length, item._id, item.owner._id))
+                cardList.addItem(createCard(item))
             }
         }, cardsContainerSelector);
         cardList.renderItems();
@@ -115,21 +115,13 @@ function handleDeleteCardClick(element, elementId) {
     popupDeleteCard.open(element, elementId);
 }
 
-function handleLikeCardClick(id) {
-    api.likeCard(id);
-}
-
-function createCard(nameValue, linkValue, countValue, idValue, ownerId) {
+function createCard(cardData) {
     const card = new Card(
-        nameValue,
-        linkValue,
-        countValue,
-        idValue,
+        cardData,
+        currentUser._id,
         itemElement,
         handleCardClick,
         handleDeleteCardClick,
-        ownerId,
-        currentUser._id,
         api.likeCard.bind(api),
         api.deleteLikeCard.bind(api),
     );
@@ -144,7 +136,7 @@ function submitAddCardHandler(inputValues) {
     addCardPopup.setLoading()
     return api.editCard(inputValues.name, inputValues.link)
         .then(res => {
-            cardList.addItem(createCard(res.name, res.link, res.likes.length, res._id, res.owner._id));
+            cardList.addItem(createCard(res));
 
             addCardPopup.resetLoading()
         })
