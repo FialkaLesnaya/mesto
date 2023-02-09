@@ -48,7 +48,7 @@ api.getCurrentUser()
     .then(() => api.loadCards())
     .then(res => {
         cardList = new Section({
-            items: res, renderer: (item) => {
+            items: res.reverse(), renderer: (item) => {
                 cardList.addItem(createCard(item))
             }
         }, cardsContainerSelector);
@@ -104,12 +104,14 @@ function handleCardClick(name, link) {
     });
 }
 
-function submitDeleteCardHandler(id) {
-    return api.deleteCard(id);
-}
-
 const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, submitDeleteCardHandler);
 popupDeleteCard.setEventListeners();
+
+function submitDeleteCardHandler(id) {
+    popupDeleteCard.setLoading();
+    return api.deleteCard(id).then(() => popupDeleteCard.resetLoading());
+}
+
 
 function handleDeleteCardClick(element, elementId) {
     popupDeleteCard.open(element, elementId);
