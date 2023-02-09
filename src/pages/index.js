@@ -27,10 +27,14 @@ import PopupWithConfirm from "../components/PopupWithConfirm.js";
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
 
 const api = new Api();
+
+let currentUser;
+
 api.getCurrentUser()
     .then(res => {
         userInfo.setUserInfo(res.name, res.about);
         profileAvatar.setAttribute('src', res.avatar);
+        currentUser = res;
     });
 
 let cardList;
@@ -38,7 +42,7 @@ api.loadCards()
     .then(res => {
         cardList = new Section({
             items: res, renderer: (item) => {
-                cardList.addItem(createCard(item.name, item.link, item.likes.length, item.id))
+                cardList.addItem(createCard(item.name, item.link, item.likes.length, item.id, item.owner._id))
             }
         }, cardsContainerSelector);
         cardList.renderItems();
@@ -84,8 +88,8 @@ function handleDeleteCardClick(element, elementId) {
 popupDeleteCard.open(element, elementId);
 }
 
-function createCard(nameValue, linkValue, countValue, idValue) {
-    const card = new Card(nameValue, linkValue, countValue, idValue, itemElement, handleCardClick, handleDeleteCardClick);
+function createCard(nameValue, linkValue, countValue, idValue, ownerId) {
+    const card = new Card(nameValue, linkValue, countValue, idValue, itemElement, handleCardClick, handleDeleteCardClick, ownerId, currentUser._id);
     const cardElement = card.getCard();
     return cardElement
 }
@@ -93,7 +97,7 @@ function createCard(nameValue, linkValue, countValue, idValue) {
 function submitAddCardHandler(inputValues) {
     api.editCard(inputValues.name, inputValues.link)
         .then(res => {
-            cardList.addItem(createCard(res.name, res.link, res.likes.length, res.id));
+            cardList.addItem(createCard(res.name, res.link, res.likes.length, res.id, res.owner._id));
         })
 }
 

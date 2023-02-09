@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(name, link, count, id, selector, handleCardClick, handleDeleteCardClick) {
+    constructor(name, link, count, id, selector, handleCardClick, handleDeleteCardClick, ownerId, myId) {
         this.name = name;
         this.link = link;
         this.selector = selector;
@@ -7,6 +7,8 @@ export default class Card {
         this.count = count;
         this._handleDeleteCardClick = handleDeleteCardClick;
         this.id = id;
+        this.ownerId = ownerId;
+        this.myId = myId;
 
         this.cardElement = this.selector.cloneNode(true);
         this.cardNameElement = this.cardElement.querySelector('.elements__name');
@@ -14,6 +16,9 @@ export default class Card {
         this.likeButton = this.cardElement.querySelector('.elements__like-button');
         this.trashButton = this.cardElement.querySelector('.elements__trash');
         this.itemLikeCount = this.cardElement.querySelector('.elements__like-count');
+        if(this.myId != this.ownerId) {
+            this.trashButton.remove();
+        }
     }
 
     getCard() {
