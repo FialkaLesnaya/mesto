@@ -4,7 +4,6 @@ import FormValidator from "../components/FormValidator.js";
 import {
     editProfileOpenButton,
     itemElement,
-    initialCards,
     addCardOpenButton,
     config,
     cardsContainerSelector,
@@ -23,7 +22,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from "../components/UserInfo.js";
-import Api from "../scripts/api.js";
+import Api from "../components/Api.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 // Поп-ап редактировать профиль
@@ -38,16 +37,15 @@ const api = new Api({
 });
 
 let currentUser;
+let cardList;
 
 api.getCurrentUser()
     .then(res => {
         userInfo.setUserInfo(res.name, res.about);
         profileAvatar.setAttribute('src', res.avatar);
         currentUser = res;
-    });
-
-let cardList;
-api.loadCards()
+    })
+    .then(() => api.loadCards())
     .then(res => {
         cardList = new Section({
             items: res, renderer: (item) => {
