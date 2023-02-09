@@ -1,32 +1,27 @@
 export default class Api {
-    token = '4f31cc87-619b-4c03-991e-9edd62906251';
-    cohortId = 'cohort-59';
+    constructor(options) {
+        this.baseUrl = options.baseUrl;
+        this.headers = options.headers;
+    }
 
     getCurrentUser() {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/users/me`, {
-            headers: {
-                authorization: this.token,
-            }
+        return fetch(`${this.baseUrl}/users/me`, {
+            headers: this.headers,
         })
             .then(res => res.json());
     }
 
     loadCards() {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards`, {
-            headers: {
-                authorization: this.token,
-            }
+        return fetch(`${this.baseUrl}/cards`, {
+            headers: this.headers,
         })
             .then(res => res.json());
     }
 
     editProfile(name, about) {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/users/me`, {
+        return fetch(`${this.baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                authorization: this.token,
-                'Content-Type': 'application/json'
-            },
+            headers: this.headers,
             body: JSON.stringify({
                 name: name,
                 about: about
@@ -36,12 +31,9 @@ export default class Api {
     }
 
     editCard(name, link) {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards`, {
+        return fetch(`${this.baseUrl}/cards`, {
             method: 'POST',
-            headers: {
-                authorization: this.token,
-                'Content-Type': 'application/json'
-            },
+            headers: this.headers,
             body: JSON.stringify({
                 name: name,
                 link: link,
@@ -51,50 +43,40 @@ export default class Api {
     }
 
     deleteCard(cardId) {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards/${cardId}`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            headers: {
-                authorization: this.token,
-            },
+            headers: this.headers,
 
         })
             .then(res => res.json());
     }
 
     likeCard(cardId) {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards/${cardId}/likes`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method: 'PUT',
-            headers: {
-                authorization: this.token,
-            },
+            headers: this.headers,
 
         })
             .then(res => res.json());
     }
 
     deleteLikeCard(cardId) {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards/${cardId}/likes`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method: 'DELETE',
-            headers: {
-                authorization: this.token,
-            },
+            headers: this.headers,
 
         })
             .then(res => res.json());
     }
 
     updateAvatar(avatar) {
-        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/users/me/avatar`, {
+        return fetch(`${this.baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: {
-                authorization: this.token,
-                'Content-Type': 'application/json',
-            },
+            headers: this.headers,
             body: JSON.stringify({
                 avatar: avatar,
             })
         })
             .then(res => res.json());
     }
-
 }

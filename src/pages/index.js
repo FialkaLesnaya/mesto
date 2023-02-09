@@ -29,7 +29,13 @@ import PopupWithConfirm from "../components/PopupWithConfirm.js";
 // Поп-ап редактировать профиль
 const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
 
-const api = new Api();
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
+    headers: {
+        authorization: '4f31cc87-619b-4c03-991e-9edd62906251',
+        'Content-Type': 'application/json'
+    }
+});
 
 let currentUser;
 
