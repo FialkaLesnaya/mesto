@@ -42,7 +42,7 @@ api.loadCards()
     .then(res => {
         cardList = new Section({
             items: res, renderer: (item) => {
-                cardList.addItem(createCard(item.name, item.link, item.likes.length, item.id, item.owner._id))
+                cardList.addItem(createCard(item.name, item.link, item.likes.length, item._id, item.owner._id))
             }
         }, cardsContainerSelector);
         cardList.renderItems();
@@ -78,14 +78,14 @@ function handleCardClick(name, link) {
 }
 
 function submitDeleteCardHandler(id) {
-
+    api.deleteCard(id);
 }
 
 const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, submitDeleteCardHandler);
 popupDeleteCard.setEventListeners();
 
 function handleDeleteCardClick(element, elementId) {
-popupDeleteCard.open(element, elementId);
+    popupDeleteCard.open(element, elementId);
 }
 
 function createCard(nameValue, linkValue, countValue, idValue, ownerId) {
@@ -97,7 +97,7 @@ function createCard(nameValue, linkValue, countValue, idValue, ownerId) {
 function submitAddCardHandler(inputValues) {
     api.editCard(inputValues.name, inputValues.link)
         .then(res => {
-            cardList.addItem(createCard(res.name, res.link, res.likes.length, res.id, res.owner._id));
+            cardList.addItem(createCard(res.name, res.link, res.likes.length, res._id, res.owner._id));
         })
 }
 

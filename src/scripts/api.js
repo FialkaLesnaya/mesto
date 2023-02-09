@@ -50,4 +50,15 @@ export default class Api {
             .then(res => res.json());
     }
 
+    deleteCard(cardId) {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this.token,
+            },
+
+        })
+            .then(res => res.json());
+    }
+
 }
