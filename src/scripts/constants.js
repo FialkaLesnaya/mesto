@@ -4,6 +4,7 @@ export const addCardOpenButton = document.querySelector('.profile__add-button');
 
 export const cardsContainerSelector = '.elements';
 export const editProfilePopupSelector = '#edit-profile';
+export const deleteCardPopupSelector = '#delete-card';
 export const imagePopupSelector = '#image-details';
 export const addCardPopupSelector = '#add-card';
 export const profileNameSelector = '.profile__name';

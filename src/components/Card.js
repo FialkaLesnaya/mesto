@@ -1,10 +1,12 @@
 export default class Card {
-    constructor(name, link, count, selector, handleCardClick) {
+    constructor(name, link, count, id, selector, handleCardClick, handleDeleteCardClick) {
         this.name = name;
         this.link = link;
         this.selector = selector;
         this._handleCardClick = handleCardClick;
         this.count = count;
+        this._handleDeleteCardClick = handleDeleteCardClick;
+        this.id = id;
 
         this.cardElement = this.selector.cloneNode(true);
         this.cardNameElement = this.cardElement.querySelector('.elements__name');
@@ -31,7 +33,7 @@ export default class Card {
     _setEventListeners() {
         this.cardImage.addEventListener('click', (evt) => this._openImageDetail(evt, this._handleCardClick));
         this.likeButton.addEventListener('click', this._addLikeHandler);
-        this.trashButton.addEventListener('click', this._removeElementHandler);
+        this.trashButton.addEventListener('click', (evt) => this._removeElementHandler(evt, this._handleDeleteCardClick, this.id));
     }
 
     // Лайк карточки
@@ -41,9 +43,9 @@ export default class Card {
     }
 
     // Удаление карточки
-    _removeElementHandler(evt) {
+    _removeElementHandler(evt, handleDeleteCardClick, id) {
         evt.preventDefault();
-        evt.target.closest('.elements__item').remove();
+        handleDeleteCardClick(evt.target.closest('.elements__item'), id);
     }
 
     // Открытие карточки
