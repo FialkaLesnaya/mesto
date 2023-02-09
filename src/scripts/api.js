@@ -83,4 +83,18 @@ export default class Api {
             .then(res => res.json());
     }
 
+    updateAvatar(avatar) {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                avatar: avatar,
+            })
+        })
+            .then(res => res.json());
+    }
+
 }

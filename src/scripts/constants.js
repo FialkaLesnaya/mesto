@@ -1,5 +1,7 @@
 export const editProfileOpenButton = document.querySelector('.profile__edit-button');
 export const addCardOpenButton = document.querySelector('.profile__add-button');
+export const openUpdateAvatarButton = document.querySelector('.profile__avatar-wrapper');
+export const avatarImage = document.querySelector('.profile__avatar');
 
 
 export const cardsContainerSelector = '.elements';
@@ -7,8 +9,10 @@ export const editProfilePopupSelector = '#edit-profile';
 export const deleteCardPopupSelector = '#delete-card';
 export const imagePopupSelector = '#image-details';
 export const addCardPopupSelector = '#add-card';
+export const updateAvatarPopupSelector = '#update-avatar';
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__position';
+
 
 const cardTemplate = document.querySelector('#card-template').content;
 export const itemElement = cardTemplate.querySelector('.elements__item');

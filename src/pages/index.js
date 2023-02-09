@@ -15,6 +15,9 @@ import {
     profileJobSelector,
     profileAvatar,
     deleteCardPopupSelector,
+    updateAvatarPopupSelector,
+    openUpdateAvatarButton,
+    avatarImage,
 } from '../scripts/constants.js';
 import Section from "../components/Section.js";
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -65,6 +68,22 @@ function submitEditProfileHandler(inputValues) {
         .then(res => {
             userInfo.setUserInfo(res.name, res.about);
         })
+}
+
+openUpdateAvatarButton.addEventListener('click', openUpdateAvatarPopup);
+
+const updateAvatarPopup = new PopupWithForm(updateAvatarPopupSelector, submitUpdateAvatarHandler);
+updateAvatarPopup.setEventListeners();
+
+function submitUpdateAvatarHandler(inputValues) {
+    api.updateAvatar(inputValues.link).then((res) => {
+        avatarImage.setAttribute('src', res.avatar);
+    });
+}
+
+function openUpdateAvatarPopup() {
+    updateAvatarPopup.open();
+    formValidators['update-avatar'].resetValidation();
 }
 
 const popup = new PopupWithImage(imagePopupSelector);
