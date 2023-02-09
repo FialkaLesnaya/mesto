@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(name, link, count, id, selector, handleCardClick, handleDeleteCardClick, ownerId, myId) {
+    constructor(name, link, count, id, selector, handleCardClick, handleDeleteCardClick, ownerId, myId, handleLikeClick, handlDeleteLikeClick) {
         this.name = name;
         this.link = link;
         this.selector = selector;
@@ -9,6 +9,8 @@ export default class Card {
         this.id = id;
         this.ownerId = ownerId;
         this.myId = myId;
+        this._handleLikeClick = handleLikeClick;
+        this._handlDeleteLikeClick = handlDeleteLikeClick;
 
         this.cardElement = this.selector.cloneNode(true);
         this.cardNameElement = this.cardElement.querySelector('.elements__name');
@@ -16,7 +18,7 @@ export default class Card {
         this.likeButton = this.cardElement.querySelector('.elements__like-button');
         this.trashButton = this.cardElement.querySelector('.elements__trash');
         this.itemLikeCount = this.cardElement.querySelector('.elements__like-count');
-        if(this.myId != this.ownerId) {
+        if (this.myId != this.ownerId) {
             this.trashButton.remove();
         }
     }
@@ -37,13 +39,24 @@ export default class Card {
 
     _setEventListeners() {
         this.cardImage.addEventListener('click', (evt) => this._openImageDetail(evt, this._handleCardClick));
-        this.likeButton.addEventListener('click', this._addLikeHandler);
+        this.likeButton.addEventListener('click', (evt) => this._addLikeHandler(evt, this._handlDeleteLikeClick, this._handleLikeClick, this.id, this.itemLikeCount));
         this.trashButton.addEventListener('click', (evt) => this._removeElementHandler(evt, this._handleDeleteCardClick, this.id));
     }
 
     // Лайк карточки
-    _addLikeHandler(evt) {
+    _addLikeHandler(evt, handlDeleteLikeClick, handleLikeClick, id, itemLikeCount) {
         evt.preventDefault();
+        if (evt.target.classList.contains('elements__like-button-active')) {
+            handlDeleteLikeClick(id)
+                .then((res) => {
+                    itemLikeCount.textContent = res.likes.length;
+                });
+        } else {
+            handleLikeClick(id)
+                .then((res) => {
+                    itemLikeCount.textContent = res.likes.length;
+                });;
+        }
         evt.target.classList.toggle('elements__like-button-active');
     }
 

@@ -61,4 +61,26 @@ export default class Api {
             .then(res => res.json());
     }
 
+    likeCard(cardId) {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: {
+                authorization: this.token,
+            },
+
+        })
+            .then(res => res.json());
+    }
+
+    deleteLikeCard(cardId) {
+        return fetch(`https://nomoreparties.co/v1/${this.cohortId}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this.token,
+            },
+
+        })
+            .then(res => res.json());
+    }
+
 }

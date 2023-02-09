@@ -88,8 +88,24 @@ function handleDeleteCardClick(element, elementId) {
     popupDeleteCard.open(element, elementId);
 }
 
+function handleLikeCardClick(id) {
+    api.likeCard(id);
+}
+
 function createCard(nameValue, linkValue, countValue, idValue, ownerId) {
-    const card = new Card(nameValue, linkValue, countValue, idValue, itemElement, handleCardClick, handleDeleteCardClick, ownerId, currentUser._id);
+    const card = new Card(
+        nameValue,
+        linkValue,
+        countValue,
+        idValue,
+        itemElement,
+        handleCardClick,
+        handleDeleteCardClick,
+        ownerId,
+        currentUser._id,
+        api.likeCard.bind(api),
+        api.deleteLikeCard.bind(api),
+    );
     const cardElement = card.getCard();
     return cardElement
 }
