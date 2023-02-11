@@ -16,7 +16,7 @@ import {
     deleteCardPopupSelector,
     updateAvatarPopupSelector,
     openUpdateAvatarButton,
-    avatarImage,
+    profileAvatarSelector,
 } from '../scripts/constants.js';
 import Section from "../components/Section.js";
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -26,7 +26,7 @@ import Api from "../components/Api.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 // Поп-ап редактировать профиль
-const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
+const userInfo = new UserInfo(profileNameSelector, profileJobSelector, profileAvatarSelector);
 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
@@ -38,19 +38,23 @@ const api = new Api({
 
 let cardList;
 
-api.getCurrentUser()
-    .then(res => {
-        userInfo.setUserInfo(res);
-        profileAvatar.setAttribute('src', res.avatar);
-    })
-    .then(() => api.loadCards())
-    .then(res => {
+Promise.all([api.getCurrentUser(), api.loadCards()])
+    // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+    .then(([userData, cards]) => {
+        // тут установка данных пользователя
+        userInfo.setUserInfo(userData);
+        profileAvatar.setAttribute('src', userData.avatar);
+        // и тут отрисовка карточек
         cardList = new Section({
-            items: res.reverse(), renderer: (item) => {
+            items: cards.reverse(), renderer: (item) => {
                 cardList.addItem(createCard(item))
             }
         }, cardsContainerSelector);
         cardList.renderItems();
+    })
+    .catch(err => {
+        // тут ловим ошибку
+        console.log(`Ошибка загрузки изначальных данных ${err}`);
     });
 
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, submitEditProfileHandler);
@@ -81,7 +85,7 @@ updateAvatarPopup.setEventListeners();
 function submitUpdateAvatarHandler(inputValues) {
     updateAvatarPopup.setLoading()
     return api.updateAvatar(inputValues.link).then((res) => {
-        avatarImage.setAttribute('src', res.avatar);
+        userInfo.setUserInfo(res);
     });
 }
 
