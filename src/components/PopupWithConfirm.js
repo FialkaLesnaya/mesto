@@ -18,11 +18,7 @@ export default class PopupWithConfirm extends Popup {
     }
 
     setLoading() {
-        this._saveButton.textContent = `Сохранение...`;
-    }
-
-    resetLoading() {
-        this._saveButton.textContent = this._iniitalSaveButtonText;
+        this._saveButton.textContent = `Удаление...`;
     }
 
     _submit(evt) {
@@ -31,6 +27,9 @@ export default class PopupWithConfirm extends Popup {
             .then(() => {
                 this.element.remove();
                 this.close();
+            })
+            .finally(() => {
+                this._saveButton.textContent = this._iniitalSaveButtonText;
             });
     }
 

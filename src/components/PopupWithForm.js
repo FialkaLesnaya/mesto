@@ -31,14 +31,13 @@ export default class PopupWithForm extends Popup {
         this._saveButton.textContent = `Сохранение...`;
     }
 
-    resetLoading() {
-        this._saveButton.textContent = this._iniitalSaveButtonText;
-    }
-
     _submit(evt) {
         evt.preventDefault();
         this._submitHandler(this._getInputValues())
-            .then(() => this.close());
+            .then(() => this.close())
+            .finally(() => {
+                this._saveButton.textContent = this._iniitalSaveButtonText;
+            });
     }
 
     close() {
