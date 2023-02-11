@@ -8,11 +8,15 @@ export default class UserInfo {
         return {
             name: this._editProfileNameElement.textContent,
             job: this._editProfileJobElement.textContent,
+            avatar: this._avatar,
+            id: this._id,
         }
     }
 
-    setUserInfo(name, job) {
+    setUserInfo({ name, about, avatar, _id }) {
         this._editProfileNameElement.textContent = name;
-        this._editProfileJobElement.textContent = job;
+        this._editProfileJobElement.textContent = about;
+        this._avatar = avatar;
+        this._id = _id;
     }
 }

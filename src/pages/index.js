@@ -36,14 +36,12 @@ const api = new Api({
     }
 });
 
-let currentUser;
 let cardList;
 
 api.getCurrentUser()
     .then(res => {
-        userInfo.setUserInfo(res.name, res.about);
+        userInfo.setUserInfo(res);
         profileAvatar.setAttribute('src', res.avatar);
-        currentUser = res;
     })
     .then(() => api.loadCards())
     .then(res => {
@@ -71,7 +69,7 @@ function submitEditProfileHandler(inputValues) {
     editProfilePopup.setLoading()
     return api.editProfile(inputValues.name, inputValues.job)
         .then(res => {
-            userInfo.setUserInfo(res.name, res.about);
+            userInfo.setUserInfo(res);
         })
 }
 
@@ -118,7 +116,7 @@ function handleDeleteCardClick(element, elementId) {
 function createCard(cardData) {
     const card = new Card(
         cardData,
-        currentUser._id,
+        userInfo.getUserInfo().id,
         itemElement,
         handleCardClick,
         handleDeleteCardClick,
