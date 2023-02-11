@@ -74,6 +74,7 @@ function submitEditProfileHandler(inputValues) {
         .then(res => {
             userInfo.setUserInfo(res);
         })
+        .catch(err => console.log(`Ошибка обновления данных ${err}`));
 }
 
 openUpdateAvatarButton.addEventListener('click', openUpdateAvatarPopup);
@@ -82,9 +83,11 @@ const updateAvatarPopup = new PopupWithForm(updateAvatarPopupSelector, submitUpd
 updateAvatarPopup.setEventListeners();
 
 function submitUpdateAvatarHandler(inputValues) {
-    return api.updateAvatar(inputValues.link).then((res) => {
-        userInfo.setUserInfo(res);
-    });
+    return api.updateAvatar(inputValues.link)
+        .then((res) => {
+            userInfo.setUserInfo(res);
+        })
+        .catch(err => console.log(`Ошибка обновления данных ${err}`));
 }
 
 function openUpdateAvatarPopup() {
@@ -102,8 +105,15 @@ function handleCardClick(name, link) {
     });
 }
 
-const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, (id) => api.deleteCard(id));
+const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, handleSubmitDeleteCard);
 popupDeleteCard.setEventListeners();
+
+
+function handleSubmitDeleteCard(id) {
+    return api.deleteCard(id)
+        .catch(err => console.log(`Ошибка обновления данных ${err}`));
+}
+
 
 function handleDeleteCardClick(element, elementId) {
     popupDeleteCard.open(element, elementId);
@@ -131,6 +141,7 @@ function submitAddCardHandler(inputValues) {
         .then(res => {
             cardList.addItem(createCard(res));
         })
+        .catch(err => console.log(`Ошибка обновления данных ${err}`));
 }
 
 addCardOpenButton.addEventListener('click', () => {
