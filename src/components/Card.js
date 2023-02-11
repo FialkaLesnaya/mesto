@@ -50,16 +50,17 @@ export default class Card {
             handlDeleteLikeClick(id)
                 .then((res) => {
                     itemLikeCount.textContent = res.likes.length;
+                    evt.target.classList.remove('elements__like-button-active')
                 })
                 .catch((err) => console.log(`Произошла ошибка удаление Лайка ${err}`));
         } else {
             handleLikeClick(id)
                 .then((res) => {
                     itemLikeCount.textContent = res.likes.length;
+                    evt.target.classList.add('elements__like-button-active')
                 })
                 .catch((err) => console.log(`Произошла ошибка установки Лайка ${err}`));
-        }
-        evt.target.classList.toggle('elements__like-button-active');
+        };
     }
 
     // Удаление карточки
