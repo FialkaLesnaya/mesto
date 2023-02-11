@@ -2,7 +2,6 @@ export default class FormValidator {
     constructor(settings, element) {
         this.settings = settings;
         this.element = element;
-        this.fieldsetList = Array.from(element.querySelectorAll(this.settings.fieldsetSelector));
         this.inputList = Array.from(element.querySelectorAll(this.settings.inputSelector));
         this.buttonElement = element.querySelector(this.settings.submitButtonSelector);
     }
@@ -12,28 +11,25 @@ export default class FormValidator {
             evt.preventDefault();
         });
 
-        this.fieldsetList.forEach(() => {
-            this._setEventListeners();
-        });
+        this._setEventListeners();
     }
 
     resetValidation() {
         this._toggleButtonState();
-  
+
         this.inputList.forEach((inputElement) => {
-          this._hideInputError(inputElement);
+            this._hideInputError(inputElement);
         });
-  
-      }
-  
+
+    }
+
 
     _setEventListeners() {
-        const context = this;
         this._toggleButtonState();
         this.inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-                context._checkInputValidity(inputElement);
-                context._toggleButtonState();
+                this._checkInputValidity(inputElement);
+                this._toggleButtonState();
             });
         });
     }
@@ -55,7 +51,7 @@ export default class FormValidator {
 
     _hideInputError(inputElement) {
         const errorElement = this.element.querySelector(`.${inputElement.id}-error`);
-        inputElement.classList.remove( this.settings.inputErrorClass);
+        inputElement.classList.remove(this.settings.inputErrorClass);
         errorElement.classList.remove(this.settings.errorClass);
         errorElement.textContent = '';
     }
