@@ -72,7 +72,6 @@ function submitEditProfileHandler(inputValues) {
     return api.editProfile(inputValues.name, inputValues.job)
         .then(res => {
             userInfo.setUserInfo(res.name, res.about);
-            editProfilePopup.resetLoading();
         })
 }
 
@@ -85,7 +84,6 @@ function submitUpdateAvatarHandler(inputValues) {
     updateAvatarPopup.setLoading()
     return api.updateAvatar(inputValues.link).then((res) => {
         avatarImage.setAttribute('src', res.avatar);
-        updateAvatarPopup.resetLoading();
     });
 }
 
@@ -109,7 +107,7 @@ popupDeleteCard.setEventListeners();
 
 function submitDeleteCardHandler(id) {
     popupDeleteCard.setLoading();
-    return api.deleteCard(id).then(() => popupDeleteCard.resetLoading());
+    return api.deleteCard(id);
 }
 
 
@@ -139,8 +137,6 @@ function submitAddCardHandler(inputValues) {
     return api.editCard(inputValues.name, inputValues.link)
         .then(res => {
             cardList.addItem(createCard(res));
-
-            addCardPopup.resetLoading()
         })
 }
 
