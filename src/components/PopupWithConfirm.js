@@ -8,29 +8,26 @@ export default class PopupWithConfirm extends Popup {
         this._inputs = this._popup.querySelectorAll('.popup__input');
         this._formElement = this._popup.querySelector('.popup__body');
         this._saveButton = this._formElement.querySelector('.popup__save-button');
-        this._iniitalSaveButtonText = this._saveButton.textContent;
-        this._submit = this._submit.bind(this);
+        this._submit = this._submit;
     }
 
     setEventListeners() {
         super.setEventListeners();
-        this._formElement.addEventListener('submit', this._submit);
-    }
 
-    setLoading() {
-        this._saveButton.textContent = `Удаление...`;
-    }
-
-    _submit(evt) {
-        evt.preventDefault();
-        this._submitHandler(this.elementId)
-            .then(() => {
-                this.element.remove();
-                this.close();
-            })
-            .finally(() => {
-                this._saveButton.textContent = this._iniitalSaveButtonText;
-            });
+        this._formElement.addEventListener('submit', () => {
+            // перед запросом сохраняем изначальный текст кнопки
+            const initialText = this._saveButton.textContent;
+            // меняем его, чтобы показать пользователю ожидание
+            this._saveButton.textContent = 'Удаление...';
+            this._submitHandler(this.elementId)
+                .then(() => {
+                    this.element.remove();
+                    this.close();
+                })
+                .finally(() => {
+                    this._saveButton.textContent = initialText;
+                }) // в любом случае меняется текст кнопки обратно на начальный в `finally`
+        });
     }
 
     open(element, elementId) {

@@ -70,7 +70,6 @@ function openEditProfileHandler(evt) {
 editProfileOpenButton.addEventListener('click', openEditProfileHandler);
 
 function submitEditProfileHandler(inputValues) {
-    editProfilePopup.setLoading()
     return api.editProfile(inputValues.name, inputValues.job)
         .then(res => {
             userInfo.setUserInfo(res);
@@ -83,7 +82,6 @@ const updateAvatarPopup = new PopupWithForm(updateAvatarPopupSelector, submitUpd
 updateAvatarPopup.setEventListeners();
 
 function submitUpdateAvatarHandler(inputValues) {
-    updateAvatarPopup.setLoading()
     return api.updateAvatar(inputValues.link).then((res) => {
         userInfo.setUserInfo(res);
     });
@@ -104,14 +102,8 @@ function handleCardClick(name, link) {
     });
 }
 
-const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, submitDeleteCardHandler);
+const popupDeleteCard = new PopupWithConfirm(deleteCardPopupSelector, (id) => api.deleteCard(id));
 popupDeleteCard.setEventListeners();
-
-function submitDeleteCardHandler(id) {
-    popupDeleteCard.setLoading();
-    return api.deleteCard(id);
-}
-
 
 function handleDeleteCardClick(element, elementId) {
     popupDeleteCard.open(element, elementId);
@@ -135,7 +127,6 @@ const addCardPopup = new PopupWithForm(addCardPopupSelector, submitAddCardHandle
 addCardPopup.setEventListeners();
 
 function submitAddCardHandler(inputValues) {
-    addCardPopup.setLoading()
     return api.editCard(inputValues.name, inputValues.link)
         .then(res => {
             cardList.addItem(createCard(res));
