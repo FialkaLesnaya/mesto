@@ -43,7 +43,6 @@ Promise.all([api.getCurrentUser(), api.loadCards()])
     .then(([userData, cards]) => {
         // тут установка данных пользователя
         userInfo.setUserInfo(userData);
-        profileAvatar.setAttribute('src', userData.avatar);
         // и тут отрисовка карточек
         cardList = new Section({
             items: cards.reverse(), renderer: (item) => {
